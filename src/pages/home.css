@@ -1,0 +1,9 @@
+.home {
+	width: calc(100vw - 375px);
+	height: 90vh;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+	padding: 5px;
+	backdrop-filter: blur(5px);
+}
