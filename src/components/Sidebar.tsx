@@ -6,7 +6,7 @@ export const SideBar = () => {
 		<div className="sidebar-wrapper">
 			<ul>
 				{productArr.map((item) => (
-					<li>{item.name}</li>
+					<li key={Math.random()}>{item.name}</li>
 				))}
 			</ul>
 		</div>

@@ -1,0 +1,11 @@
+.navbar-wrapper {
+	height: 30px;
+	margin-inline-start: 10px;
+}
+
+.nav-list {
+	display: flex;
+	gap: 10px;
+	font-size: 20px;
+	list-style: none;
+}

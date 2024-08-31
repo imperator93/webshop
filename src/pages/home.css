@@ -1,6 +1,6 @@
 .home {
-	width: calc(100vw - 375px);
-	height: 90vh;
+	width: 100vw;
+	height: fit-content;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 5px;

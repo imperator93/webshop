@@ -6,7 +6,7 @@ export const Home = () => {
 	return (
 		<div className="home">
 			{productArr.map((item) => (
-				<ProductComponent item={item} />
+				<ProductComponent key={Math.random()} item={item} />
 			))}
 		</div>
 	);

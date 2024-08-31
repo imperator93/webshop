@@ -1,0 +1,59 @@
+.login-wrapper {
+	flex-basis: 85%;
+	display: flex;
+	gap: 2px;
+	background-color: transparent;
+	backdrop-filter: blur(10px);
+}
+
+.sign-up-form,
+.login-form {
+	flex-basis: 50%;
+	width: 40vw;
+	height: 90vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	background-color: white;
+	user-select: none;
+}
+
+.sign-up-form > input,
+.login-form > input {
+	min-width: 150px;
+	height: 5vh;
+	width: 15vw;
+	font-size: 25px;
+	padding-left: 10px;
+	border: none;
+	border-bottom: 1px solid black;
+	outline: none;
+}
+
+.sign-up-form > label,
+.login-form > label {
+	font-size: 25px;
+}
+
+.form-register-login-button {
+	cursor: pointer;
+	background-color: white;
+	border: none;
+	width: 150px;
+	height: 50px;
+	font-size: 35px;
+}
+
+@media (max-width: 576px) {
+	.login-wrapper {
+		flex-direction: column;
+		width: 100vw;
+	}
+	.login-form,
+	.sign-up-form {
+		padding: 10px 0px 10px 0px;
+		width: 100vw;
+	}
+}

@@ -1,5 +1,4 @@
 .product-wrapper {
-	min-height: 300px;
 	height: fit-content;
 	width: 250px;
 	border-radius: 5px;
@@ -17,9 +16,9 @@
 
 .product-image {
 	border-radius: 2px;
+	max-width: 250px;
 	width: 250px;
 	height: 150px;
-	max-width: 250px;
 }
 
 .details-wrapper {
@@ -32,5 +31,20 @@
 	}
 	100% {
 		transform: scale(1.01);
+	}
+}
+
+@media (max-width: 576px) {
+	.product-wrapper {
+		display: flex;
+		flex-basis: 100%;
+	}
+	.details-wrapper {
+		height: fit-content;
+	}
+}
+@media (min-width: 576px) {
+	.product-wrapper {
+		min-height: 300px;
 	}
 }

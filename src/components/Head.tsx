@@ -1,24 +1,21 @@
+import { FaSearch } from "react-icons/fa";
+import { SlLogin } from "react-icons/sl";
+import "./head.css";
+
 export const Head = () => {
 	return (
-		<div
-			className="head-wrapper"
-			style={{
-				display: "flex",
-				alignItems: "center",
-				gap: "10px",
-				width: "100vw",
-				height: "5vh",
-			}}
-		>
-			<h1 style={{ display: "inline" }}>Webshop</h1>
-			<div>
-				<input style={{ height: "fit-content" }} />
-				<button>Search</button>
+		<div className="head-wrapper">
+			<h1 className="title">Webshop</h1>
+			<div className="search-input-and-button">
+				<input className="search-input" />
+				<button className="search-button">
+					<FaSearch />
+				</button>
 			</div>
-			<div style={{ justifySelf: "flex-end" }}>
-				<button>Sign In</button>
-				<button>Register</button>
-			</div>
+
+			<button className="register-login-button">
+				LOGIN/REGISTER <SlLogin />
+			</button>
 		</div>
 	);
 };
