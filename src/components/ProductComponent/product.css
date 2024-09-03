@@ -42,6 +42,9 @@
 	.details-wrapper {
 		height: fit-content;
 	}
+	.product-image {
+		align-self: center;
+	}
 }
 @media (min-width: 576px) {
 	.product-wrapper {

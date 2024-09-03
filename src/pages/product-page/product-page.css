@@ -1,0 +1,37 @@
+.product-page {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+	gap: 50px;
+	background-color: white;
+	margin-top: 5px;
+	padding: 5px;
+}
+
+.product-page > * {
+	border: 1px solid black;
+}
+
+.product-page-details {
+	width: 20vw;
+	height: calc(50vh - 10px);
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	flex-basis: 66%;
+	background-color: white;
+	padding: 5px;
+}
+.product-page-image {
+	width: 40vw;
+	height: 50vh;
+	flex-basis: 33%;
+}
+
+.product-page-name {
+	width: 100%;
+	height: fit-content;
+	text-align: center;
+}

@@ -5,4 +5,6 @@ export const productArr = [
 	products.mazda3,
 	products.alfaRomeoStelvio,
 	products.astonMartinDB,
+	products.lenovoLegion,
+	products.samsungGalaxyA15,
 ];

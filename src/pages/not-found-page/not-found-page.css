@@ -1,0 +1,16 @@
+.not-found-page {
+	width: 100vw;
+	height: 90vh;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5px;
+	background-color: white;
+}
+
+.back-home-button {
+	text-decoration: none;
+	color: blue;
+	font-size: x-large;
+}

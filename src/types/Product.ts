@@ -9,13 +9,17 @@ export type Product = {
 };
 
 export type Car = Product & {
+	type: "car";
 	model: string;
 	year: number;
 };
 
 export type Computer = Product & {
+	type: "computer";
 	cpu: string;
 	gpu: string;
 };
 
-export type Phone = Car;
+export type Phone = Omit<Car, "type"> & {
+	type: "phone";
+};

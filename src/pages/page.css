@@ -1,6 +1,6 @@
-.home {
+.page {
 	width: 100vw;
-	height: fit-content;
+	min-height: fit-content;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 5px;
