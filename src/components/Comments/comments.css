@@ -1,0 +1,27 @@
+.comment-container {
+	display: flex;
+	height: 200px;
+	flex-direction: column;
+	overflow-y: scroll;
+	margin: 2px;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 4px;
+}
+
+.comment {
+	display: flex;
+	height: 50px;
+	border-bottom: 1px solid gray;
+}
+
+.avatar {
+	height: 50px;
+	width: 50px;
+	background-color: red;
+}
+
+.comment-text {
+	font-size: 16px;
+	font-weight: 100;
+}

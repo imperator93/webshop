@@ -1,15 +1,16 @@
 import { ProductComponent } from "../components/ProductComponent/ProductComponent";
-import { productArr } from "../test-inputs/productArr";
-import * as typeGuards from "../types/typeGuards";
+import { ProductType } from "../types/Product";
 import "./page.css";
 
-export const CarsPage = () => {
+export const CarsPage = ({ products }: { products: ProductType[] }) => {
 	return (
 		<div className="page">
-			{/* typscript lacking functionality here cannot compare item by type like with classes e.g. (item instance of Class) */}
-			{productArr.filter(typeGuards.isCar).map((item) => (
-				<ProductComponent item={item} />
-			))}
+			{/* typscript lacking functionality here cannot compare item by type like with classes e.g. (item instanceof Class) */}
+			{products
+				.filter((item) => item.type === "car")
+				.map((item) => (
+					<ProductComponent key={item.__id} item={item} />
+				))}
 		</div>
 	);
 };

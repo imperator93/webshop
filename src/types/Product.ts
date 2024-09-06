@@ -23,3 +23,5 @@ export type Computer = Product & {
 export type Phone = Omit<Car, "type"> & {
 	type: "phone";
 };
+
+export type ProductType = Car | Computer | Phone;

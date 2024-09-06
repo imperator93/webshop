@@ -1,4 +1,6 @@
 .product-wrapper {
+	text-decoration: none;
+	color: black;
 	height: fit-content;
 	width: 250px;
 	border-radius: 5px;

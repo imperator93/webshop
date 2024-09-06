@@ -1,13 +1,12 @@
-import { Car, Computer, Phone } from "../../types/Product";
+import { ProductType } from "../../types/Product";
 import { Rating } from "../util-components/Rating";
 import "./product.css";
-import React from "react";
+import { TypeOfProductUtil } from "./TypeOfProductUtil";
+import { Link } from "react-router-dom";
 
-export const ProductComponent: React.FC<{ item: Car | Computer | Phone }> = ({
-	item,
-}) => {
+export const ProductComponent = ({ item }: { item: ProductType }) => {
 	return (
-		<div className="product-wrapper">
+		<Link to={`/${item.type}s/${item.__id}`} className="product-wrapper">
 			<img className="product-image" src={item.image} />
 			<div className="details-wrapper">
 				<h2 className="product-name">{item.name}</h2>
@@ -15,53 +14,7 @@ export const ProductComponent: React.FC<{ item: Car | Computer | Phone }> = ({
 					<strong>Description: </strong>
 					{item.description}
 				</p>
-				{(() => {
-					switch (item.type) {
-						case "car":
-							return (
-								<>
-									<p>
-										<strong>Model: </strong>
-										{item.model}
-									</p>
-									<p>
-										<strong>Year: </strong>
-										{item.year}
-									</p>
-								</>
-							);
-						case "computer":
-							return (
-								<>
-									<p>
-										<strong>CPU: </strong>
-										{item.cpu}
-									</p>
-									<p>
-										<strong>GPU: </strong>
-										{item.gpu}
-									</p>
-								</>
-							);
-						case "phone":
-							return (
-								<>
-									<p>
-										<strong>Type: </strong>
-										{item.type}
-									</p>
-									<p>
-										<strong>Year: </strong>
-										{item.year}
-									</p>
-								</>
-							);
-						default:
-							return null;
-					}
-				})()}
-
-				{}
+				<TypeOfProductUtil item={item} />
 				<p>
 					<strong>Price: </strong>
 					{item.price}
@@ -70,6 +23,6 @@ export const ProductComponent: React.FC<{ item: Car | Computer | Phone }> = ({
 					Rating: <Rating rating={item.rating} /> /5
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
