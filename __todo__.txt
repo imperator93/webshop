@@ -1,0 +1,5 @@
+1. Fix in test inputs - new Date not to be called in the object but when handling comments
+2. Add "Add comment button" and functionality
+3. In login add password auth
+4. In server dir add products api and routes
+5. MEDIA QUERIES AAAAAAAH

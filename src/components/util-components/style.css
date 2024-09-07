@@ -1,6 +1,7 @@
 .stars {
-	width: 10px;
-	height: 10px;
+	width: 40px;
+	height: 25px;
 	border-radius: 100%;
-	background-color: gold;
+	color: gold;
+	font-size: 30px;
 }

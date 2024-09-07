@@ -1,21 +1,23 @@
+import { ProductType } from "../../types/Product";
 import "./comments.css";
 
-export const Comments = () => {
+export const Comments = ({ product }: { product: ProductType }) => {
 	//placeholder
-	const comments = ["first", "second", "third", "first", "second", "third"];
 	return (
 		<div className="comments-wrapper">
 			<h1>Comments</h1>
 			<div className="comment-container">
-				{comments.map((item) => (
-					<div key={item} className="comment">
-						<img className="avatar" />
-						<div>
-							<h4>username</h4>
-							<p className="comment-text">{item}</p>
+				{product.comments &&
+					product.comments.map((item) => (
+						<div key={Math.random()} className="comment">
+							<img className="avatar" src={item.fromUser.avatar} />
+							<div>
+								<h5>{item.fromUser.username}</h5>
+								<p className="comment-text">{item.content}</p>
+								<p className="comment-time">{item.date}</p>
+							</div>
 						</div>
-					</div>
-				))}
+					))}
 			</div>
 		</div>
 	);

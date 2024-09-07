@@ -46,6 +46,28 @@
 	font-size: 35px;
 }
 
+.avatar-wrapper {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.avatar-title {
+	flex-basis: 100%;
+	text-align: center;
+}
+
+.avatar-input {
+	appearance: none;
+	width: 50px;
+	height: 48px;
+	margin: 2px;
+}
+
+.avatar-input:checked {
+	border: 2px solid black;
+}
+
 @media (max-width: 576px) {
 	.login-wrapper {
 		flex-direction: column;

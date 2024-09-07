@@ -1,6 +1,7 @@
 .sidebar-wrapper {
-	flex-basis: 15%;
 	height: 88vh;
+	min-width: 200px;
+	flex-basis: 15%;
 	margin: 5px 0px 5px;
 	border-radius: 2px;
 	padding: 10px 0px 0px 10px;

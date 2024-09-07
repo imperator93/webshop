@@ -1,9 +1,12 @@
+import { Comment } from "./Comment";
+
 export type Product = {
 	image: string;
 	name: string;
 	price: string;
 	rating: number;
 	description: string;
+	comments?: Comment[];
 	__id?: string | number;
 	_v?: number;
 };

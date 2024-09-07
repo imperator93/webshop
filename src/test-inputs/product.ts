@@ -9,6 +9,18 @@ const mazda3: Car = {
 	price: "3.999,99 $",
 	model: "3 re-design",
 	rating: 1,
+	comments: [
+		{
+			content: "CAR SUCKS!!!",
+			//need not to call this here instead when commenting (can't json this anyway)
+			date: (() => {
+				const date = new Date(Date.now());
+
+				return `${date.getHours()}h:${date.getMinutes()}m ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+			})(),
+			fromUser: { username: "Leo", avatar: "https://imgur.com/hCmLdFR.jpeg" },
+		},
+	],
 	__id: 12345,
 };
 
@@ -21,6 +33,7 @@ const audiA6: Car = {
 	price: "31.499,99 $",
 	model: "A6",
 	rating: 5,
+	comments: [],
 	__id: 123456,
 };
 
@@ -33,6 +46,7 @@ const alfaRomeoStelvio: Car = {
 	price: "22.999,99 $",
 	model: "Stelvio",
 	rating: 4,
+	comments: [],
 	__id: 1234567,
 };
 
@@ -45,6 +59,7 @@ const astonMartinDB: Car = {
 	price: "209.999,99 $",
 	model: "DB",
 	rating: 4,
+	comments: [],
 	__id: 12345678,
 };
 
@@ -57,6 +72,7 @@ const lenovoLegion: Computer = {
 	rating: 3,
 	cpu: "I5 12400",
 	gpu: "nVidia 4060 8gb",
+	comments: [],
 	__id: 123456789,
 };
 
@@ -69,6 +85,7 @@ const samsungGalaxyA15: Phone = {
 	rating: 4,
 	model: "A 15",
 	year: 2023,
+	comments: [],
 	__id: 12345678910,
 };
 

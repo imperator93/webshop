@@ -12,7 +12,7 @@
 
 .product-page-details {
 	width: 20vw;
-	height: calc(70vh - 10px);
+	height: calc(85vh - 10px);
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -46,5 +46,20 @@
 	}
 	.product-page-details {
 		flex-basis: 100%;
+		height: fit-content;
+	}
+}
+
+@media (min-width: 577px) and (max-width: 1024px) {
+	.product-page {
+		flex-wrap: wrap;
+	}
+	.product-page-image {
+		width: 100%;
+		height: 35%;
+	}
+	.product-page-details {
+		flex-basis: 100%;
+		height: fit-content;
 	}
 }

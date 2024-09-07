@@ -29,7 +29,7 @@ export const ProductPage = ({ products }: { products: ProductType[] }) => {
 					<TypeOfProductUtil item={item[0]} />
 					<h3>
 						PRICE: {item[0].price}
-						<Comments />
+						<Comments product={item[0]} />
 					</h3>
 				</div>
 			</div>

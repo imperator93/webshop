@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import anotherBackground from "./assets/another-background.jpg";
 //components
@@ -21,20 +21,26 @@ import { ProductPage } from "./pages/product-page/ProductPage";
 import { productArr } from "./test-inputs/productArr";
 import { useEffect, useState } from "react";
 import { ProductType } from "./types/Product";
+import { User } from "./types/User";
 
 function App() {
 	const [products, setProducts] = useState<ProductType[]>([]);
+	const [user, setUser] = useState<User>();
+
 	useEffect(() => setProducts(productArr), []);
 
 	//search (replace this with fetch later)
+	const navigate = useNavigate();
 	const handleSearch = (event?: React.FormEvent<HTMLFormElement>) => {
 		event!.preventDefault();
-
-		const updatedProducts = products.filter((item) =>
+		navigate("/");
+		const updatedProducts = productArr.filter((item) =>
 			item.name
 				.toLowerCase()
 				.includes(((event!.target as HTMLFormElement)[0] as HTMLInputElement).value.toLocaleLowerCase())
 		);
+
+		setProducts(updatedProducts);
 	};
 
 	return (
@@ -57,7 +63,6 @@ function App() {
 
 				<Routes>
 					<Route path="/" element={<HomePage products={products} />} />
-					<Route path="/login" element={<Login />} />
 
 					<Route path="/cars" element={<CarsPage products={products} />} />
 					<Route path="cars/:productID" element={<ProductPage products={products} />} />
@@ -68,7 +73,7 @@ function App() {
 					<Route path="/phones" element={<PhonesPage products={products} />} />
 					<Route path="phones/:productID" element={<ProductPage products={products} />} />
 
-					<Route path="/login" element={<Login />} />
+					{!user && <Route path="/login" element={<Login setUser={setUser} />} />}
 
 					<Route path="*" element={<NotFound />} />
 				</Routes>
