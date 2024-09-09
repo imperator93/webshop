@@ -1,21 +1,27 @@
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
 import { avatarArr } from "../../assets/avatarArr";
 
 import { User } from "../../types/User";
 
 import "./login.css";
+import { setUser } from "../../redux/slices/userSlice";
 
-export const Login = ({ setUser }: { setUser: (user: User) => void }) => {
-	const [register, setRegister] = useState<{ userExists: boolean; registeringSuccessful: boolean }>({
+export const Login = () => {
+	const dispatch = useDispatch();
+
+	const [register, setRegister] = useState<Record<string, boolean>>({
 		userExists: false,
 		registeringSuccessful: false,
 	});
+	//could have just written {_: bool} or just bool but this looks fancy
+	const [login, setLogin] = useState<Pick<typeof register, "userExists">>({ userExists: false });
 
 	//REGISTER
 	const handleRegister = (event: React.FormEvent) => {
 		event.preventDefault();
 
+		//cannot iterate over event.target so I made my own function
 		const findChecked = (event: React.FormEvent): string => {
 			let word = "";
 			for (let i = 2; i <= 5; i++) {
@@ -41,7 +47,6 @@ export const Login = ({ setUser }: { setUser: (user: User) => void }) => {
 		})
 			.then((response) => (!response.ok ? console.log("bad request") : response.json()))
 			.then((data) => {
-				console.log(data);
 				if (data.message == "User already exists") setRegister({ ...register, userExists: true });
 				else setRegister({ ...register, registeringSuccessful: true });
 			});
@@ -56,8 +61,10 @@ export const Login = ({ setUser }: { setUser: (user: User) => void }) => {
 		fetch(`http://localhost:3000/users/${existingUserUsername}`)
 			.then((response) => (!response.ok ? console.log("bad request") : response.json()))
 			.then((data) => {
-				if (data.userInDatabase) setUser(data.user);
-				console.log(data);
+				console.log(data.user);
+				if (data.userInDatabase) {
+					dispatch(setUser(data.user));
+				} else setLogin({ ...login, userExists: true });
 			});
 	};
 	return (
@@ -105,6 +112,7 @@ export const Login = ({ setUser }: { setUser: (user: User) => void }) => {
 				<div style={{ textAlign: "center", marginBottom: "5px" }}>
 					<h1>LOGIN</h1>
 					<p>Welcome back money spender</p>
+					{login.userExists && <p style={{ color: "red" }}>user doesn't exist</p>}
 				</div>
 				<input pattern="\S(.*\S)?" required type="text" />
 				<label>Username</label>

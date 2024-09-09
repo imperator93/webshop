@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-
-import anotherBackground from "./assets/another-background.jpg";
+import { useDispatch, useSelector } from "react-redux";
 //components
 import { Navbar } from "./components/Navbar";
 import { Head } from "./components/Head";
@@ -12,25 +12,31 @@ import { CarsPage } from "./pages/CarsPage";
 import { ComputersPage } from "./pages/ComputersPage";
 import { PhonesPage } from "./pages/PhonesPage";
 import { Login } from "./pages/Login/Login";
-
-import "./style.css";
-import { NotFound } from "./pages/not-found-page/NotFoundPage";
 import { ProductPage } from "./pages/product-page/ProductPage";
+import { NotFound } from "./pages/not-found-page/NotFoundPage";
 
 // test inputs
 import { productArr } from "./test-inputs/productArr";
-import { useEffect, useState } from "react";
-import { ProductType } from "./types/Product";
-import { User } from "./types/User";
+
+//types
+import { State } from "./redux/store";
+
+import anotherBackground from "./assets/another-background.jpg";
+import "./style.css";
+import { setProducts } from "./redux/slices/productsSlice";
 
 function App() {
-	const [products, setProducts] = useState<ProductType[]>([]);
-	const [user, setUser] = useState<User>();
-
-	useEffect(() => setProducts(productArr), []);
+	const user = useSelector((state: State) => state.user.user);
+	const products = useSelector((state: State) => state.products.products);
+	const dispatch = useDispatch();
 
 	//search (replace this with fetch later)
+	useEffect(() => {
+		dispatch(setProducts(productArr));
+	}, [dispatch]);
+
 	const navigate = useNavigate();
+
 	const handleSearch = (event?: React.FormEvent<HTMLFormElement>) => {
 		event!.preventDefault();
 		navigate("/");
@@ -40,9 +46,8 @@ function App() {
 				.includes(((event!.target as HTMLFormElement)[0] as HTMLInputElement).value.toLocaleLowerCase())
 		);
 
-		setProducts(updatedProducts);
+		dispatch(setProducts(updatedProducts));
 	};
-
 	return (
 		<div
 			className="app"
@@ -65,15 +70,15 @@ function App() {
 					<Route path="/" element={<HomePage products={products} />} />
 
 					<Route path="/cars" element={<CarsPage products={products} />} />
-					<Route path="cars/:productID" element={<ProductPage products={products} />} />
+					<Route path="cars/:productID" element={<ProductPage />} />
 
 					<Route path="/computers" element={<ComputersPage products={products} />} />
-					<Route path="computers/:productID" element={<ProductPage products={products} />} />
+					<Route path="computers/:productID" element={<ProductPage />} />
 
 					<Route path="/phones" element={<PhonesPage products={products} />} />
-					<Route path="phones/:productID" element={<ProductPage products={products} />} />
+					<Route path="phones/:productID" element={<ProductPage />} />
 
-					{!user && <Route path="/login" element={<Login setUser={setUser} />} />}
+					{!user && <Route path="/login" element={<Login />} />}
 
 					<Route path="*" element={<NotFound />} />
 				</Routes>

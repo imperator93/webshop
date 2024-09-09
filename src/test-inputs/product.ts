@@ -9,18 +9,7 @@ const mazda3: Car = {
 	price: "3.999,99 $",
 	model: "3 re-design",
 	rating: 1,
-	comments: [
-		{
-			content: "CAR SUCKS!!!",
-			//need not to call this here instead when commenting (can't json this anyway)
-			date: (() => {
-				const date = new Date(Date.now());
-
-				return `${date.getHours()}h:${date.getMinutes()}m ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
-			})(),
-			fromUser: { username: "Leo", avatar: "https://imgur.com/hCmLdFR.jpeg" },
-		},
-	],
+	comments: [],
 	__id: 12345,
 };
 

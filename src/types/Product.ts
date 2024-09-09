@@ -6,7 +6,7 @@ export type Product = {
 	price: string;
 	rating: number;
 	description: string;
-	comments?: Comment[];
+	comments: Comment[];
 	__id?: string | number;
 	_v?: number;
 };

@@ -1,11 +1,16 @@
+import { State } from "../../redux/store";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+
 import { TypeOfProductUtil } from "../../components/ProductComponent/TypeOfProductUtil";
 import { Rating } from "../../components/util-components/Rating";
-import { ProductType } from "../../types/Product";
-import "./product-page.css";
 import { Comments } from "../../components/Comments/Comments";
 
-export const ProductPage = ({ products }: { products: ProductType[] }) => {
+import "./product-page.css";
+
+export const ProductPage = () => {
+	const products = useSelector((state: State) => state.products.products);
+
 	const { productID } = useParams<string>();
 	const navigate = useNavigate();
 
@@ -27,10 +32,8 @@ export const ProductPage = ({ products }: { products: ProductType[] }) => {
 						Odio omnis possimus, animi corporis quam soluta.
 					</p>
 					<TypeOfProductUtil item={item[0]} />
-					<h3>
-						PRICE: {item[0].price}
-						<Comments product={item[0]} />
-					</h3>
+					<h3>PRICE: {item[0].price}</h3>
+					<Comments product={item[0]} />
 				</div>
 			</div>
 		);
