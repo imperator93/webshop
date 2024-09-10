@@ -15,7 +15,7 @@ export const ProductPage = () => {
 	const navigate = useNavigate();
 
 	//for some reason the find method doesn't want to work I'm probably typing something wrong
-	const item = products.filter((item) => item.__id == productID);
+	const item = products.filter((item) => item._id == productID);
 
 	if (!item[0]) navigate("*");
 

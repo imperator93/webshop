@@ -9,7 +9,7 @@ export const PhonesPage = ({ products }: { products: ProductType[] }) => {
 			{products
 				.filter((item) => item.type === "phone")
 				.map((item) => (
-					<ProductComponent key={item.__id} item={item} />
+					<ProductComponent key={item._id} item={item} />
 				))}
 		</div>
 	);

@@ -10,7 +10,7 @@ const mazda3: Car = {
 	model: "3 re-design",
 	rating: 1,
 	comments: [],
-	__id: 12345,
+	_id: "12345",
 };
 
 const audiA6: Car = {
@@ -23,7 +23,7 @@ const audiA6: Car = {
 	model: "A6",
 	rating: 5,
 	comments: [],
-	__id: 123456,
+	_id: "123456",
 };
 
 const alfaRomeoStelvio: Car = {
@@ -36,7 +36,7 @@ const alfaRomeoStelvio: Car = {
 	model: "Stelvio",
 	rating: 4,
 	comments: [],
-	__id: 1234567,
+	_id: "1234567",
 };
 
 const astonMartinDB: Car = {
@@ -49,7 +49,7 @@ const astonMartinDB: Car = {
 	model: "DB",
 	rating: 4,
 	comments: [],
-	__id: 12345678,
+	_id: "12345678",
 };
 
 const lenovoLegion: Computer = {
@@ -62,7 +62,7 @@ const lenovoLegion: Computer = {
 	cpu: "I5 12400",
 	gpu: "nVidia 4060 8gb",
 	comments: [],
-	__id: 123456789,
+	_id: "123456789",
 };
 
 const samsungGalaxyA15: Phone = {
@@ -75,7 +75,7 @@ const samsungGalaxyA15: Phone = {
 	model: "A 15",
 	year: 2023,
 	comments: [],
-	__id: 12345678910,
+	_id: "12345678910",
 };
 
 export { mazda3, audiA6, alfaRomeoStelvio, astonMartinDB, lenovoLegion, samsungGalaxyA15 };

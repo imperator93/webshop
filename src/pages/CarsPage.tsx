@@ -9,7 +9,7 @@ export const CarsPage = ({ products }: { products: ProductType[] }) => {
 			{products
 				.filter((item) => item.type === "car")
 				.map((item) => (
-					<ProductComponent key={item.__id} item={item} />
+					<ProductComponent key={Math.random()} item={item} />
 				))}
 		</div>
 	);

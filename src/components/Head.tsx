@@ -1,10 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/slices/userSlice";
+import { State } from "../redux/store";
+
+import { Link } from "react-router-dom";
+
 import { FaSearch } from "react-icons/fa";
 import { SlLogin } from "react-icons/sl";
+
 import "./head.css";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../redux/store";
-import { setUser } from "../redux/slices/userSlice";
+import { setProducts } from "../redux/slices/productsSlice";
+import { productArr } from "../test-inputs/productArr";
 
 export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<HTMLFormElement>) => void }) => {
 	const user = useSelector((state: State) => state.user.user);
@@ -16,12 +21,15 @@ export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<H
 				<h1 className="title">Webshop</h1>
 			</Link>
 			<form onSubmit={(event) => handleSearch(event)} className="search-input-and-button">
-				<input placeholder="search shop..." className="search-input" />
+				<input
+					onFocus={() => dispatch(setProducts(productArr))}
+					placeholder="search shop..."
+					className="search-input"
+				/>
 				<button type="submit" className="search-button">
 					<FaSearch />
 				</button>
 			</form>
-
 			{!user ? (
 				<button className="register-login-button">
 					<Link style={{ textDecoration: "none", color: "white" }} to="/login">

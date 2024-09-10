@@ -7,8 +7,8 @@ export type Product = {
 	rating: number;
 	description: string;
 	comments: Comment[];
-	__id?: string | number;
-	_v?: number;
+	_id?: string;
+	__v?: number;
 };
 
 export type Car = Product & {

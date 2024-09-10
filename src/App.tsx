@@ -39,15 +39,16 @@ function App() {
 
 	const handleSearch = (event?: React.FormEvent<HTMLFormElement>) => {
 		event!.preventDefault();
+		let inputValue = ((event!.target as HTMLFormElement)[0] as HTMLInputElement).value;
 		navigate("/");
-		const updatedProducts = productArr.filter((item) =>
-			item.name
-				.toLowerCase()
-				.includes(((event!.target as HTMLFormElement)[0] as HTMLInputElement).value.toLocaleLowerCase())
-		);
+		const updatedProducts = productArr.filter((item) => item.name.toLowerCase().includes(inputValue.toLowerCase()));
+		if (updatedProducts.length == 0) navigate("*");
 
 		dispatch(setProducts(updatedProducts));
+
+		inputValue = "";
 	};
+
 	return (
 		<div
 			className="app"

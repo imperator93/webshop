@@ -9,12 +9,21 @@ const productsSlice = createSlice({
 		setProducts: (state, action) => {
 			state.products = action.payload;
 		},
-		addComment: (state, action: PayloadAction<{ __id: string; comment: Comment }>) => {
-			const product = state.products.find((item) => item.__id === action.payload.__id);
+		addComment: (state, action: PayloadAction<{ _id: string; comment: Comment }>) => {
+			const product = state.products.find((item) => item._id == action.payload._id);
 			if (product) product.comments.push(action.payload.comment);
+		},
+		removeComment: (state, action: PayloadAction<{ productId?: string; commentId: string }>) => {
+			const product = state.products.find((item) => item._id == action.payload.productId);
+			if (product) {
+				const commentToDelete = product.comments.find((item) => item._id == action.payload.commentId);
+				if (commentToDelete) {
+					product.comments.splice(product.comments.indexOf(commentToDelete), 1);
+				}
+			}
 		},
 	},
 });
 
-export const { setProducts, addComment } = productsSlice.actions;
+export const { setProducts, addComment, removeComment } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -7,7 +7,7 @@ export const Rating = ({ rating }: { rating: number }) => {
 		<div style={{ display: "flex", gap: "2px" }}>
 			{[...Array(rating)].map(() => (
 				<div key={Math.random()} className="stars">
-					<CiStar />{" "}
+					<CiStar />
 				</div>
 			))}
 		</div>

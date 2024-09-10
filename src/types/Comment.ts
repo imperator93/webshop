@@ -4,5 +4,6 @@ export type Comment = {
 	content: string;
 	fromUser: Pick<User, "avatar" | "username">;
 	date: string;
-	__id?: string;
+	_id?: string;
+	__v?: number;
 };

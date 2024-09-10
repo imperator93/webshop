@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { avatarArr } from "../../assets/avatarArr";
+import { useNavigate } from "react-router-dom";
 
+import { avatarArr } from "../../assets/avatarArr";
 import { User } from "../../types/User";
 
-import "./login.css";
 import { setUser } from "../../redux/slices/userSlice";
 
+import "./login.css";
 export const Login = () => {
 	const dispatch = useDispatch();
+
+	const navigate = useNavigate();
 
 	const [register, setRegister] = useState<Record<string, boolean>>({
 		userExists: false,
@@ -35,7 +38,6 @@ export const Login = () => {
 			password: ((event.target as HTMLFormElement)[1] as HTMLInputElement).value.toLowerCase(),
 			avatar: findChecked(event),
 		};
-		console.log(newUser);
 		setRegister({ ...register, userExists: false });
 
 		fetch("http://localhost:3000/users", {
@@ -66,6 +68,7 @@ export const Login = () => {
 					dispatch(setUser(data.user));
 				} else setLogin({ ...login, userExists: true });
 			});
+		navigate("/");
 	};
 	return (
 		<div className="login-wrapper">

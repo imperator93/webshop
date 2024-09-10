@@ -1,12 +1,20 @@
+import { useDispatch } from "react-redux";
 import { ProductType } from "../../types/Product";
 import { Rating } from "../util-components/Rating";
 import "./product.css";
 import { TypeOfProductUtil } from "./TypeOfProductUtil";
 import { Link } from "react-router-dom";
+import { setProducts } from "../../redux/slices/productsSlice";
+import { productArr } from "../../test-inputs/productArr";
 
 export const ProductComponent = ({ item }: { item: ProductType }) => {
+	const dispatch = useDispatch();
 	return (
-		<Link to={`/${item.type}s/${item.__id}`} className="product-wrapper">
+		<Link
+			onClick={() => dispatch(setProducts(productArr))}
+			to={`/${item.type}s/${item._id}`}
+			className="product-wrapper"
+		>
 			<img className="product-image" src={item.image} />
 			<div className="details-wrapper">
 				<h2 className="product-name">{item.name}</h2>
