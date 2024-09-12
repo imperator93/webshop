@@ -25,6 +25,7 @@ import anotherBackground from "./assets/another-background.jpg";
 import "./style.css";
 import { setProducts } from "./redux/slices/productsSlice";
 import { ProductType } from "./types/Product";
+import { setUser } from "./redux/slices/userSlice";
 
 function App() {
 	const user = useSelector((state: State) => state.user.user);
@@ -33,13 +34,20 @@ function App() {
 
 	//search (replace this with fetch later)
 	useEffect(() => {
-		fetch("http://localhost:3000/products")
+		fetch("http://192.168.0.102:3000/products")
 			.then((response) => response.json())
 			.then((data) => {
 				dispatch(setProducts(data.allProducts));
 				sessionStorage.setItem(`${data.message}`, JSON.stringify(data.allProducts));
 			});
 	}, [dispatch]);
+
+	//log in user in session when reloading page
+	useEffect(() => {
+		const userFromSessionStorage = sessionStorage.getItem("user");
+		if (userFromSessionStorage) dispatch(setUser(JSON.parse(userFromSessionStorage)));
+	}, [dispatch]);
+
 	const navigate = useNavigate();
 
 	const handleSearch = (event?: React.FormEvent<HTMLFormElement>) => {

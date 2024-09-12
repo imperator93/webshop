@@ -24,7 +24,7 @@ export const Comments = ({ product }: { product: ProductType }) => {
 		};
 		inputValue = "";
 
-		fetch(`http://localhost:3000/${product.type}s/${product._id}`, {
+		fetch(`http://192.168.0.102:3000/${product.type}s/${product._id}`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -38,9 +38,13 @@ export const Comments = ({ product }: { product: ProductType }) => {
 	};
 
 	const handleDeleteComment = (event: React.BaseSyntheticEvent) => {
-		dispatch(removeComment({ productId: product._id, commentId: event.target.id }));
+		const userNotValiUserComment = product.comments.find((comment) => comment._id === event.target.id);
+		if (userNotValiUserComment?.fromUser.username !== user?.username) {
+			return;
+		}
 
-		fetch(`http://localhost:3000/${product.type}s/${product._id}/${event.target.id}`, {
+		dispatch(removeComment({ productId: product._id, commentId: event.target.id }));
+		fetch(`http://192.168.0.102:3000/${product.type}s/${product._id}/${event.target.id}`, {
 			method: "DELETE",
 		})
 			.then((response) => console.log(response))
@@ -59,9 +63,11 @@ export const Comments = ({ product }: { product: ProductType }) => {
 								<p className="comment-text">{item.content}</p>
 								<p className="comment-time">{item.date}</p>
 							</div>
-							<button id={item._id} className="delete-comment-button" onClick={(event) => handleDeleteComment(event)}>
-								Delete Comment
-							</button>
+							{user && (
+								<button id={item._id} className="delete-comment-button" onClick={(event) => handleDeleteComment(event)}>
+									Delete Comment
+								</button>
+							)}
 						</div>
 					))}
 			</div>

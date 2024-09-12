@@ -40,7 +40,7 @@ export const Login = () => {
 		};
 		setRegister({ ...register, userExists: false });
 
-		fetch("http://localhost:3000/users", {
+		fetch("http://192.168.0.102:3000/users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -60,13 +60,15 @@ export const Login = () => {
 
 		const existingUserUsername = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value;
 
-		fetch(`http://localhost:3000/users/${existingUserUsername}`)
+		fetch(`http://192.168.0.102:3000/users/${existingUserUsername}`)
 			.then((response) => (!response.ok ? console.log("bad request") : response.json()))
 			.then((data) => {
 				if (data.userInDatabase) {
 					dispatch(setUser(data.user));
 					login.userExists = false;
 					navigate("/");
+					const userToSessionStorage = JSON.stringify(data.user);
+					sessionStorage.setItem("user", userToSessionStorage);
 				} else {
 					login.userExists = true;
 					setLogin({ ...login, userExists: true });

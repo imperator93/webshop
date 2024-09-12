@@ -43,7 +43,14 @@ export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<H
 					<h3 style={{ fontWeight: "100", backdropFilter: "blur(5px)" }}>
 						Currently logged in as: <strong>{user.username}</strong>
 					</h3>
-					<button onClick={() => dispatch(setUser(undefined))}>LOG OUT</button>
+					<button
+						onClick={() => {
+							sessionStorage.removeItem("user");
+							dispatch(setUser(undefined));
+						}}
+					>
+						LOG OUT
+					</button>
 				</>
 			)}
 		</div>

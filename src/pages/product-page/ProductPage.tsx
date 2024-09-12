@@ -1,26 +1,25 @@
 import { State } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { TypeOfProductUtil } from "../../components/ProductComponent/TypeOfProductUtil";
 import { Rating } from "../../components/util-components/Rating";
 import { Comments } from "../../components/Comments/Comments";
 
 import "./product-page.css";
-import { useEffect } from "react";
 
 export const ProductPage = () => {
 	const products = useSelector((state: State) => state.products.products);
 
 	const { productID } = useParams<string>();
-	const navigate = useNavigate();
 
 	//for some reason the find method doesn't want to work I'm probably typing something wrong
 	const item = products.filter((item) => item._id == productID);
 
-	useEffect(() => {
-		if (!item[0]) navigate("*");
-	}, [item, navigate]);
+	//NEED FIX HERE
+	// useEffect(() => {
+	// 	if (!item[0]) navigate("*");
+	// }, [item, navigate]);
 
 	if (item[0])
 		return (
