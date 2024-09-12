@@ -16,14 +16,15 @@ import { ProductPage } from "./pages/product-page/ProductPage";
 import { NotFound } from "./pages/not-found-page/NotFoundPage";
 
 // test inputs
-import { productArr } from "./test-inputs/productArr";
 
 //types
 import { State } from "./redux/store";
+// helpers
 
 import anotherBackground from "./assets/another-background.jpg";
 import "./style.css";
 import { setProducts } from "./redux/slices/productsSlice";
+import { ProductType } from "./types/Product";
 
 function App() {
 	const user = useSelector((state: State) => state.user.user);
@@ -32,16 +33,22 @@ function App() {
 
 	//search (replace this with fetch later)
 	useEffect(() => {
-		dispatch(setProducts(productArr));
+		fetch("http://localhost:3000/products")
+			.then((response) => response.json())
+			.then((data) => {
+				dispatch(setProducts(data.allProducts));
+				sessionStorage.setItem(`${data.message}`, JSON.stringify(data.allProducts));
+			});
 	}, [dispatch]);
-
 	const navigate = useNavigate();
 
 	const handleSearch = (event?: React.FormEvent<HTMLFormElement>) => {
 		event!.preventDefault();
 		let inputValue = ((event!.target as HTMLFormElement)[0] as HTMLInputElement).value;
 		navigate("/");
-		const updatedProducts = productArr.filter((item) => item.name.toLowerCase().includes(inputValue.toLowerCase()));
+		const updatedProducts = (JSON.parse(sessionStorage.getItem("allProducts")!) as ProductType[]).filter((item) =>
+			item.name.toLowerCase().includes(inputValue.toLowerCase())
+		);
 		if (updatedProducts.length == 0) navigate("*");
 
 		dispatch(setProducts(updatedProducts));

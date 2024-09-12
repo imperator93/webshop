@@ -9,20 +9,22 @@ import { SlLogin } from "react-icons/sl";
 
 import "./head.css";
 import { setProducts } from "../redux/slices/productsSlice";
-import { productArr } from "../test-inputs/productArr";
 
 export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<HTMLFormElement>) => void }) => {
 	const user = useSelector((state: State) => state.user.user);
 	const dispatch = useDispatch();
-
 	return (
 		<div className="head-wrapper">
-			<Link style={{ textDecoration: "none", color: "black" }} to="/">
+			<Link
+				onClick={() => dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)))}
+				style={{ textDecoration: "none", color: "black" }}
+				to="/"
+			>
 				<h1 className="title">Webshop</h1>
 			</Link>
 			<form onSubmit={(event) => handleSearch(event)} className="search-input-and-button">
 				<input
-					onFocus={() => dispatch(setProducts(productArr))}
+					onFocus={() => dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)))}
 					placeholder="search shop..."
 					className="search-input"
 				/>

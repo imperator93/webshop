@@ -7,6 +7,7 @@ import { Rating } from "../../components/util-components/Rating";
 import { Comments } from "../../components/Comments/Comments";
 
 import "./product-page.css";
+import { useEffect } from "react";
 
 export const ProductPage = () => {
 	const products = useSelector((state: State) => state.products.products);
@@ -17,7 +18,9 @@ export const ProductPage = () => {
 	//for some reason the find method doesn't want to work I'm probably typing something wrong
 	const item = products.filter((item) => item._id == productID);
 
-	if (!item[0]) navigate("*");
+	useEffect(() => {
+		if (!item[0]) navigate("*");
+	}, [item, navigate]);
 
 	if (item[0])
 		return (

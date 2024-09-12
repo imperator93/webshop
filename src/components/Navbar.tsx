@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setProducts } from "../redux/slices/productsSlice";
 //testInputs
-import { productArr } from "../test-inputs/productArr";
 
 import "./navbar.css";
 
@@ -16,7 +15,9 @@ export const Navbar = () => {
 				{categories.map((item) => (
 					<li key={Math.random()}>
 						<Link
-							onClick={() => dispatch(setProducts(productArr))}
+							onClick={() => {
+								dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)));
+							}}
 							style={{ textDecoration: "none", color: "black" }}
 							to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
 						>

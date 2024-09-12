@@ -5,13 +5,14 @@ import "./product.css";
 import { TypeOfProductUtil } from "./TypeOfProductUtil";
 import { Link } from "react-router-dom";
 import { setProducts } from "../../redux/slices/productsSlice";
-import { productArr } from "../../test-inputs/productArr";
 
 export const ProductComponent = ({ item }: { item: ProductType }) => {
 	const dispatch = useDispatch();
 	return (
 		<Link
-			onClick={() => dispatch(setProducts(productArr))}
+			onClick={() => {
+				dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)));
+			}}
 			to={`/${item.type}s/${item._id}`}
 			className="product-wrapper"
 		>

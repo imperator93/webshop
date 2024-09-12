@@ -63,12 +63,15 @@ export const Login = () => {
 		fetch(`http://localhost:3000/users/${existingUserUsername}`)
 			.then((response) => (!response.ok ? console.log("bad request") : response.json()))
 			.then((data) => {
-				console.log(data.user);
 				if (data.userInDatabase) {
 					dispatch(setUser(data.user));
-				} else setLogin({ ...login, userExists: true });
+					login.userExists = false;
+					navigate("/");
+				} else {
+					login.userExists = true;
+					setLogin({ ...login, userExists: true });
+				}
 			});
-		navigate("/");
 	};
 	return (
 		<div className="login-wrapper">

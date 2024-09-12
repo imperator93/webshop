@@ -3,9 +3,9 @@ import { State } from "../../redux/store";
 
 import { ProductType } from "../../types/Product";
 import { Comment } from "../../types/Comment";
-
-import "./comments.css";
+import { getDate } from "../../helpers/getDate";
 import { addComment, removeComment } from "./../../redux/slices/productsSlice";
+import "./comments.css";
 
 export const Comments = ({ product }: { product: ProductType }) => {
 	const user = useSelector((state: State) => state.user.user);
@@ -17,24 +17,34 @@ export const Comments = ({ product }: { product: ProductType }) => {
 
 		let inputValue = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value;
 
-		const getDate = () => {
-			const time = new Date(Date.now());
-			const date = `${time.getHours()}:${time.getMinutes()} on ${time.getDate()} ${time.getFullYear()}`;
-			return date;
-		};
 		const comments: Comment = {
 			content: inputValue,
 			fromUser: { avatar: user!.avatar, username: user!.username },
 			date: getDate(),
-			_id: user!._id,
 		};
 		inputValue = "";
 
-		dispatch(addComment({ _id: product._id!.toString(), comment: comments }));
+		fetch(`http://localhost:3000/${product.type}s/${product._id}`, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(comments),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				dispatch(addComment({ _id: product._id!.toString(), comment: { ...comments, _id: data.commentID } }));
+			});
 	};
 
 	const handleDeleteComment = (event: React.BaseSyntheticEvent) => {
 		dispatch(removeComment({ productId: product._id, commentId: event.target.id }));
+
+		fetch(`http://localhost:3000/${product.type}s/${product._id}/${event.target.id}`, {
+			method: "DELETE",
+		})
+			.then((response) => console.log(response))
+			.then((data) => console.log(data));
 	};
 	return (
 		<div className="comments-wrapper">
@@ -42,14 +52,14 @@ export const Comments = ({ product }: { product: ProductType }) => {
 			<div className="comment-container">
 				{product.comments &&
 					product.comments.map((item) => (
-						<div key={Math.random()} className="comment">
+						<div key={item._id} className="comment">
 							<img className="avatar" src={item.fromUser.avatar} />
 							<div>
 								<h5>{item.fromUser.username}</h5>
 								<p className="comment-text">{item.content}</p>
 								<p className="comment-time">{item.date}</p>
 							</div>
-							<button id={user?._id} className="delete-comment-button" onClick={(event) => handleDeleteComment(event)}>
+							<button id={item._id} className="delete-comment-button" onClick={(event) => handleDeleteComment(event)}>
 								Delete Comment
 							</button>
 						</div>
