@@ -40,18 +40,18 @@ export const Comments = ({ product }: { product: ProductType }) => {
 	const handleDeleteComment = (event: React.BaseSyntheticEvent) => {
 		const userNotValiUserComment = product.comments.find((comment) => comment._id === event.target.id);
 		if (userNotValiUserComment?.fromUser.username !== user?.username) {
+			alert("YOU CANNOT DELETE OTHER PEOPLE'S COMMENTS");
 			return;
 		}
 
 		dispatch(removeComment({ productId: product._id, commentId: event.target.id }));
 		fetch(`http://192.168.0.102:3000/${product.type}s/${product._id}/${event.target.id}`, {
 			method: "DELETE",
-		})
-			.then((response) => console.log(response))
-			.then((data) => console.log(data));
+		}).then((response) => console.log(response));
 	};
+
 	return (
-		<div className="comments-wrapper">
+		<div>
 			<h1>Comments</h1>
 			<div className="comment-container">
 				{product.comments &&
@@ -63,8 +63,15 @@ export const Comments = ({ product }: { product: ProductType }) => {
 								<p className="comment-text">{item.content}</p>
 								<p className="comment-time">{item.date}</p>
 							</div>
+							{/* need to fix this render */}
 							{user && (
-								<button id={item._id} className="delete-comment-button" onClick={(event) => handleDeleteComment(event)}>
+								<button
+									id={item._id}
+									className="delete-comment-button"
+									onClick={(event) => {
+										handleDeleteComment(event);
+									}}
+								>
 									Delete Comment
 								</button>
 							)}
@@ -72,10 +79,12 @@ export const Comments = ({ product }: { product: ProductType }) => {
 					))}
 			</div>
 			{user ? (
-				<form onSubmit={(event) => handleCommentSubmit(event)}>
+				<form className="comment-something-form" onSubmit={(event) => handleCommentSubmit(event)}>
 					<label>Comment something {user.username}: </label>
-					<input required minLength={3} maxLength={30} type="text"></input>
-					<button type="submit">Post</button>
+					<div className="comment-something-wrapper">
+						<input spellCheck={false} required minLength={3} maxLength={30}></input>
+						<button type="submit">Post</button>
+					</div>
 				</form>
 			) : (
 				<div>YOU MUST BE LOGGED IN TO COMMENT</div>

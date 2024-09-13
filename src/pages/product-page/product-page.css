@@ -13,6 +13,7 @@
 .product-page-details {
 	width: 20vw;
 	height: calc(85vh - 10px);
+	max-width: 800px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -23,9 +24,9 @@
 	padding: 5px;
 }
 .product-page-image {
-	width: 40vw;
+	width: 50vw;
 	height: 50vh;
-	max-width: 500px;
+	max-width: 600px;
 	max-height: 500px;
 	flex-basis: 33%;
 }

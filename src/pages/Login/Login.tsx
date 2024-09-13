@@ -8,6 +8,7 @@ import { User } from "../../types/User";
 import { setUser } from "../../redux/slices/userSlice";
 
 import "./login.css";
+import { passHesh } from "../../helpers/passHesh";
 export const Login = () => {
 	const dispatch = useDispatch();
 
@@ -17,13 +18,15 @@ export const Login = () => {
 		userExists: false,
 		registeringSuccessful: false,
 	});
-	//could have just written {_: bool} or just bool but this looks fancy
-	const [login, setLogin] = useState<Pick<typeof register, "userExists">>({ userExists: false });
+
+	const [login, setLogin] = useState<{ userExists: boolean; correctPassword: boolean }>({
+		userExists: true,
+		correctPassword: true,
+	});
 
 	//REGISTER
 	const handleRegister = (event: React.FormEvent) => {
 		event.preventDefault();
-
 		//cannot iterate over event.target so I made my own function
 		const findChecked = (event: React.FormEvent): string => {
 			let word = "";
@@ -33,9 +36,17 @@ export const Login = () => {
 			}
 			return word;
 		};
+		const username = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value.toLowerCase();
+		const password = ((event.target as HTMLFormElement)[1] as HTMLInputElement).value.toLowerCase();
+
+		if (password.includes("/")) {
+			alert("Character / is not allowed in the password");
+			return;
+		}
+
 		const newUser: User = {
-			username: ((event.target as HTMLFormElement)[0] as HTMLInputElement).value.toLowerCase(),
-			password: ((event.target as HTMLFormElement)[1] as HTMLInputElement).value.toLowerCase(),
+			username: username,
+			password: password,
 			avatar: findChecked(event),
 		};
 		setRegister({ ...register, userExists: false });
@@ -57,21 +68,39 @@ export const Login = () => {
 	//LOGIN
 	const handleLogin = (event: React.FormEvent) => {
 		event.preventDefault();
-
+		login.correctPassword = true;
 		const existingUserUsername = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value;
+		const userPassword = ((event.target as HTMLFormElement)[1] as HTMLInputElement).value;
 
-		fetch(`http://192.168.0.102:3000/users/${existingUserUsername}`)
+		//yes everyone can see the encryption pass what can you do...maybe have a secret key? :=)
+		const encryptedPassword = passHesh(userPassword);
+
+		fetch(`http://192.168.0.102:3000/users/login`, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({
+				username: existingUserUsername,
+				password: encryptedPassword,
+			}),
+		})
 			.then((response) => (!response.ok ? console.log("bad request") : response.json()))
 			.then((data) => {
+				console.log(data);
 				if (data.userInDatabase) {
+					setLogin({ ...login, userExists: true });
 					dispatch(setUser(data.user));
-					login.userExists = false;
 					navigate("/");
+
 					const userToSessionStorage = JSON.stringify(data.user);
 					sessionStorage.setItem("user", userToSessionStorage);
+
+					console.log(data.userInDatabase);
+				} else if (data.message == "WRONG PASSWORD INTRUDER!!!") {
+					setLogin({ userExists: true, correctPassword: false });
 				} else {
-					login.userExists = true;
-					setLogin({ ...login, userExists: true });
+					setLogin({ ...login, userExists: false });
 				}
 			});
 	};
@@ -120,11 +149,11 @@ export const Login = () => {
 				<div style={{ textAlign: "center", marginBottom: "5px" }}>
 					<h1>LOGIN</h1>
 					<p>Welcome back money spender</p>
-					{login.userExists && <p style={{ color: "red" }}>user doesn't exist</p>}
+					{!login.userExists && <p style={{ color: "red" }}>user doesn't exist</p>}
 				</div>
 				<input pattern="\S(.*\S)?" required type="text" />
 				<label>Username</label>
-
+				{!login.correctPassword && <p style={{ color: "red" }}>WRONG PASSWORD INTRUDER!!!</p>}
 				<input pattern="\S(.*\S)?" required type="password" />
 				<label>Password</label>
 
