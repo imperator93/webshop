@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { ProductType } from "../../types/Product";
 import { Rating } from "../util-components/Rating";
 import "./product.css";
-import { TypeOfProductUtil } from "./TypeOfProductUtil";
+import { TypeOfProductUtil } from "../util-components/TypeOfProductUtil";
 import { Link } from "react-router-dom";
 import { setProducts } from "../../redux/slices/productsSlice";
 
@@ -19,7 +19,7 @@ export const ProductComponent = ({ item }: { item: ProductType }) => {
 			<img className="product-image" src={item.image} />
 			<div className="details-wrapper">
 				<h2 className="product-name">{item.name}</h2>
-				<p className="description">
+				<p>
 					<strong>Description: </strong>
 					{item.description}
 				</p>

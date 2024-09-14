@@ -2,7 +2,7 @@ import { State } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { TypeOfProductUtil } from "../../components/ProductComponent/TypeOfProductUtil";
+import { TypeOfProductUtil } from "../../components/util-components/TypeOfProductUtil";
 import { Rating } from "../../components/util-components/Rating";
 import { Comments } from "../../components/Comments/Comments";
 

@@ -1,12 +1,12 @@
 .product-page {
 	width: 100%;
+	height: calc(100vh - 100px);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: nowrap;
 	gap: 50px;
 	background-color: white;
-	margin-top: 5px;
 	padding: 5px;
 }
 

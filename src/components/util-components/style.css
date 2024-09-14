@@ -1,7 +1,13 @@
 .stars {
-	width: 40px;
+	width: 30px;
 	height: 25px;
 	border-radius: 100%;
 	color: gold;
 	font-size: 30px;
+}
+
+@media (max-width: 576px) {
+	.stars {
+		width: 20px;
+	}
 }
