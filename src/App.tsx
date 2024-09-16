@@ -15,13 +15,10 @@ import { Login } from "./pages/Login/Login";
 import { ProductPage } from "./pages/product-page/ProductPage";
 import { NotFound } from "./pages/not-found-page/NotFoundPage";
 
-// test inputs
-
 //types
 import { State } from "./redux/store";
 // helpers
 
-import anotherBackground from "./assets/another-background.jpg";
 import "./style.css";
 import { setProducts } from "./redux/slices/productsSlice";
 import { ProductType } from "./types/Product";
@@ -34,7 +31,7 @@ function App() {
 
 	//search (replace this with fetch later)
 	useEffect(() => {
-		fetch("http://192.168.0.102:3000/products")
+		fetch("https://webshop-backend-rgpw.onrender.com/products")
 			.then((response) => response.json())
 			.then((data) => {
 				dispatch(setProducts(data.allProducts));
@@ -69,7 +66,7 @@ function App() {
 			className="app"
 			style={{
 				height: "100vh",
-				background: `URL(${anotherBackground})`,
+				background: `URL(https://imgur.com/jHpVKMM.jpeg)`,
 				//not working for some reason
 				backgroundRepeat: "repeat-y",
 			}}

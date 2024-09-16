@@ -51,7 +51,7 @@ export const Login = () => {
 		};
 		setRegister({ ...register, userExists: false });
 
-		fetch("http://192.168.0.102:3000/users", {
+		fetch("https://webshop-backend-rgpw.onrender.com/users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -75,7 +75,7 @@ export const Login = () => {
 		//yes everyone can see the encryption pass what can you do...maybe have a secret key? :=)
 		const encryptedPassword = passHesh(userPassword);
 
-		fetch(`http://192.168.0.102:3000/users/login`, {
+		fetch(`https://webshop-backend-rgpw.onrender.com/users/login`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
