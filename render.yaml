@@ -2,7 +2,7 @@ services:
   - type: web
     name: my-app
     env: static
-    buildCommand: "npm run build"
+    buildCommand: "tsc -b && vite build"
     startCommand: "serve -s dist"
     routes:
       - src: "/(.*)"
