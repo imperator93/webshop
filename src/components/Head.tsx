@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { SlLogin } from "react-icons/sl";
 
-import "./head.css";
 import { setProducts } from "../redux/slices/productsSlice";
+
+import "./head.css";
 
 export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<HTMLFormElement>) => void }) => {
 	const user = useSelector((state: State) => state.user.user);
@@ -44,6 +45,7 @@ export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<H
 						Currently logged in as: <strong>{user.username}</strong>
 					</h3>
 					<button
+						className="log-out-button"
 						onClick={() => {
 							sessionStorage.removeItem("user");
 							dispatch(setUser(undefined));

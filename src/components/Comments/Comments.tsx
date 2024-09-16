@@ -44,10 +44,13 @@ export const Comments = ({ product }: { product: ProductType }) => {
 			return;
 		}
 
-		dispatch(removeComment({ productId: product._id, commentId: event.target.id }));
 		fetch(`http://192.168.0.102:3000/${product.type}s/${product._id}/${event.target.id}`, {
 			method: "DELETE",
-		}).then((response) => console.log(response));
+		})
+			.then((response) => response.json())
+			.then(() => {
+				dispatch(removeComment({ productId: product._id, commentId: event.target.id }));
+			});
 	};
 
 	return (
@@ -83,7 +86,9 @@ export const Comments = ({ product }: { product: ProductType }) => {
 					<label>Comment something {user.username}: </label>
 					<div className="comment-something-wrapper">
 						<input spellCheck={false} required minLength={3} maxLength={30}></input>
-						<button type="submit">Post</button>
+						<button className="post-button" type="submit">
+							Post
+						</button>
 					</div>
 				</form>
 			) : (

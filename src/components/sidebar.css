@@ -22,7 +22,7 @@
 	color: orange;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 611px) {
 	.sidebar-wrapper {
 		display: none;
 	}

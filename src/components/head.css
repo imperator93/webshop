@@ -57,7 +57,38 @@
 	animation: enlarge 0.2s forwards;
 }
 
+.log-out-button {
+	cursor: pointer;
+	background-color: transparent;
+	font-size: larger;
+	border: none;
+}
+.log-out-button:hover {
+	color: blue;
+	transform: scale(1.1);
+}
 @media (max-width: 576px) {
+	.head-wrapper {
+		height: 120px;
+		justify-content: center;
+		gap: 0px;
+		padding-inline-start: 0px;
+	}
+	.title {
+		flex-basis: 100%;
+		text-align: center;
+	}
+	.search-input-and-button {
+		display: flex;
+		justify-content: center;
+		flex-basis: 100%;
+	}
+	.search-input {
+		flex-basis: 80%;
+	}
+}
+
+@media (max-width: 773px) {
 	.head-wrapper {
 		height: 120px;
 		justify-content: center;

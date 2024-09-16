@@ -51,7 +51,7 @@
 	}
 }
 
-@media (min-width: 577px) and (max-width: 1024px) {
+@media (min-width: 577px) and (max-width: 1300px) {
 	.product-page {
 		flex-wrap: wrap;
 	}
