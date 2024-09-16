@@ -36,8 +36,8 @@ export const Login = () => {
 			}
 			return word;
 		};
-		const username = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value.toLowerCase();
-		const password = ((event.target as HTMLFormElement)[1] as HTMLInputElement).value.toLowerCase();
+		const username = ((event.target as HTMLFormElement)[0] as HTMLInputElement).value;
+		const password = ((event.target as HTMLFormElement)[1] as HTMLInputElement).value;
 
 		if (password.includes("/")) {
 			alert("Character / is not allowed in the password");

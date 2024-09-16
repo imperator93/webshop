@@ -24,7 +24,7 @@ export const Comments = ({ product }: { product: ProductType }) => {
 		};
 		inputValue = "";
 
-		fetch(`https://webshop-backend-rgpw.onrender.com//${product.type}s/${product._id}`, {
+		fetch(`https://webshop-backend-rgpw.onrender.com/${product.type}s/${product._id}`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -44,7 +44,7 @@ export const Comments = ({ product }: { product: ProductType }) => {
 			return;
 		}
 
-		fetch(`https://webshop-backend-rgpw.onrender.com//${product.type}s/${product._id}/${event.target.id}`, {
+		fetch(`https://webshop-backend-rgpw.onrender.com/${product.type}s/${product._id}/${event.target.id}`, {
 			method: "DELETE",
 		})
 			.then((response) => response.json())
