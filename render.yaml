@@ -6,4 +6,4 @@ services:
     startCommand: "serve -s dist"
     routes:
       - src: "/(.*)"
-        dest: "dist/index.html"
+        dest: "index.html"
