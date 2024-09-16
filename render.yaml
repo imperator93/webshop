@@ -3,7 +3,7 @@ services:
     name: my-app
     env: static
     buildCommand: "tsc -b && vite build"
-    startCommand: "serve -s dist"
+    startCommand: "npx serve -s dist -l 3000"
     routes:
       - src: "/(.*)"
         dest: "index.html"
