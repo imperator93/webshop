@@ -7,8 +7,7 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
-		"preview": "vite preview",
-		"postinstall": "npx serve -s dist -l 3000"
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.2.7",
