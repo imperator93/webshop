@@ -112,7 +112,7 @@ export const Login = () => {
 
 					{register.userExists && <div style={{ color: "red" }}>User with this name already registered</div>}
 
-					<input pattern="\S(.*\S)?" minLength={3} maxLength={10} required type="text" />
+					<input pattern="\S(.*\S)?" minLength={3} maxLength={12} required type="text" />
 					<label>Username</label>
 
 					<input pattern="\S(.*\S)?" minLength={5} maxLength={10} required type="password" />
