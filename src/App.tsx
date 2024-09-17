@@ -36,7 +36,8 @@ function App() {
 			.then((data) => {
 				dispatch(setProducts(data.allProducts));
 				sessionStorage.setItem(`${data.message}`, JSON.stringify(data.allProducts));
-			});
+			})
+			.catch((err) => console.log(err));
 	}, [dispatch]);
 
 	//log in user in session when reloading page

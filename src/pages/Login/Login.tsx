@@ -87,7 +87,6 @@ export const Login = () => {
 		})
 			.then((response) => (!response.ok ? console.log("bad request") : response.json()))
 			.then((data) => {
-				console.log(data);
 				if (data.userInDatabase) {
 					setLogin({ ...login, userExists: true });
 					dispatch(setUser(data.user));
@@ -95,8 +94,6 @@ export const Login = () => {
 
 					const userToSessionStorage = JSON.stringify(data.user);
 					sessionStorage.setItem("user", userToSessionStorage);
-
-					console.log(data.userInDatabase);
 				} else if (data.message == "WRONG PASSWORD INTRUDER!!!") {
 					setLogin({ userExists: true, correctPassword: false });
 				} else {
