@@ -23,6 +23,7 @@ import "./style.css";
 import { setProducts } from "./redux/slices/productsSlice";
 import { ProductType } from "./types/Product";
 import { setUser } from "./redux/slices/userSlice";
+import { Millionaire } from "./millionaire/Millionaire";
 
 function App() {
 	const user = useSelector((state: State) => state.user.user);
@@ -91,6 +92,8 @@ function App() {
 
 					<Route path="/phones" element={<PhonesPage products={products} />} />
 					<Route path="phones/:productID" element={<ProductPage />} />
+
+					<Route path="/millionaire" element={<Millionaire />} />
 
 					{!user && <Route path="/login" element={<Login />} />}
 

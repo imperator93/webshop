@@ -1,11 +1,22 @@
 .navbar-wrapper {
 	padding-left: 10px;
 	height: 30px;
+	width: calc(100vw - 30px);
 }
 
 .nav-list {
+	width: 100%;
 	display: flex;
 	gap: 10px;
 	font-size: 20px;
 	list-style: none;
+}
+
+.navbar-link {
+	text-decoration: none;
+	color: black;
+}
+.nav-list > li:last-child {
+	margin-left: auto;
+	font-size: 15px;
 }

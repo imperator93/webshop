@@ -1,0 +1,101 @@
+.millionaire-play-screen-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.millionaire-play-screen {
+	position: relative;
+	width: 80%;
+	height: 40%;
+	display: flex;
+	border: 1px double white;
+	border-radius: 10px;
+	margin-top: 2%;
+	padding: 0px 5px 0px 5px;
+	background-color: rgba(0, 0, 0, 0.95);
+	color: white;
+	font-size: 26px;
+}
+
+.millionaire-open-lifelines-button {
+	position: absolute;
+	width: fit-content;
+	height: fit-content;
+	align-self: flex-end;
+	cursor: pointer;
+	border: none;
+	background-color: rgba(0, 0, 0, 0.95);
+	color: white;
+	font-size: 25px;
+}
+
+.millionaire-play-screen-answer-wrapper {
+	width: 80%;
+	height: 30%;
+	position: absolute;
+	top: 45%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.millionaire-play-screen-answer-button {
+	cursor: pointer;
+	width: 45%;
+	height: 35%;
+	border: 2px solid white;
+	background-color: black;
+	border-radius: 20px;
+	padding: 20px;
+	color: white;
+	text-align: left;
+	text-justify: center;
+	font-size: 30px;
+}
+
+.millionaire-play-screen-answer-button > strong {
+	color: goldenrod;
+}
+
+.millionaire-play-screen-are-you-sure-div {
+	width: 45%;
+	height: 35%;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: black;
+	border: 1px solid white;
+	color: white;
+}
+
+.are-you-sure-yes-no-wrapper > * {
+	cursor: pointer;
+	border: none;
+	background-color: transparent;
+	color: white;
+	font-size: 20px;
+	margin: 0px 5px;
+}
+
+.are-you-sure-yes-no-wrapper > *:hover {
+	color: yellow;
+	transform: scale(1.05);
+}
+
+@media (max-width: 1100px) {
+	.millionaire-play-screen-answer-button {
+		width: 100%;
+	}
+	.millionaire-play-screen-are-you-sure-div {
+		width: 80%;
+		top: 55%;
+	}
+}

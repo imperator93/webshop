@@ -1,0 +1,27 @@
+.millionaire-intro-screen {
+	width: 80%;
+	height: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px double white;
+	border-radius: 10px;
+	margin-top: 2%;
+	padding: 0px 5px 0px 5px;
+	background-color: rgba(0, 0, 0, 0.95);
+	color: white;
+	font-size: 26px;
+}
+.millionaire-start-button {
+	cursor: pointer;
+	width: 50px;
+	height: 40px;
+	border: none;
+	background-color: transparent;
+	color: white;
+	font-size: 25px;
+}
+
+.millionaire-start-button:hover {
+	transform: scale(1.1);
+}

@@ -6,9 +6,15 @@
 
 .main {
 	display: flex;
-	height: calc(100vh - 150px);
+	height: calc(100vh - 90px);
 }
 
 .head-navbar-wrapper {
 	background: linear-gradient(orange, transparent);
+}
+
+@media (max-width: 774px) {
+	.main {
+		height: calc(100% - 150px);
+	}
 }

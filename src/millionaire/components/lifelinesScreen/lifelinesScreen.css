@@ -1,0 +1,41 @@
+.millionaire-lifelines-div {
+	width: 50%;
+	height: 50%;
+	position: absolute;
+	top: 20%;
+	left: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid white;
+	border-radius: 10px;
+	background-color: black;
+}
+
+.fifty-fifty-button {
+	background: url("https://imgur.com/I5Fl3Fu.jpeg");
+}
+.phone-friend-button {
+	background: url("https://imgur.com/ibulu20.jpeg");
+}
+
+.ask-audience-button {
+	background: url("https://imgur.com/edmbvEK.jpeg");
+}
+
+.fifty-fifty-button,
+.phone-friend-button,
+.ask-audience-button {
+	cursor: pointer;
+	width: 80px;
+	height: 50px;
+	border: none;
+	border-radius: 100%;
+	background-size: 100% 100%;
+}
+
+.fifty-fifty-button:hover,
+.phone-friend-button:hover,
+.ask-audience-button:hover {
+	transform: scale(1.05);
+}

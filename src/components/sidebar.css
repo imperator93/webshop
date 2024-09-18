@@ -1,5 +1,5 @@
 .sidebar-wrapper {
-	height: calc(100vh - 105px);
+	height: calc(100% - 10px);
 	min-width: 200px;
 	flex-basis: 15%;
 	margin: 0px 0px 5px;

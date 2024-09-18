@@ -7,7 +7,7 @@ import { setProducts } from "../redux/slices/productsSlice";
 import "./navbar.css";
 
 export const Navbar = () => {
-	const categories = ["Home", "Cars", "Computers", "Phones"];
+	const categories = ["Home", "Cars", "Computers", "Phones", "MILLIONAIRE"];
 	const dispatch = useDispatch();
 	return (
 		<div className="navbar-wrapper">
@@ -15,10 +15,10 @@ export const Navbar = () => {
 				{categories.map((item) => (
 					<li key={Math.random()}>
 						<Link
+							className="navbar-link"
 							onClick={() => {
 								dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)));
 							}}
-							style={{ textDecoration: "none", color: "black" }}
 							to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
 						>
 							{item}
