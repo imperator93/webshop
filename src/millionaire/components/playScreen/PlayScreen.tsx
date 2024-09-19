@@ -4,8 +4,9 @@ import { State } from "../../../redux/store";
 import { FaHeart } from "react-icons/fa";
 import { LifelinesScreen } from "../lifelinesScreen/LifelinesScreen";
 
+import { resetGameState, setGameState } from "../../../redux/slices/millionaire/gameState";
+
 import "./playScreen.css";
-import { setGameState } from "../../../redux/slices/millionaire/gameState";
 
 export const PlayScreen = () => {
 	const gameState = useSelector((state: State) => state.gameState);
@@ -19,8 +20,25 @@ export const PlayScreen = () => {
 	const handleYesClicked = () => {
 		const correctAnswer = questions[gameState.currentQuestionNumber].answers.find((answer) => answer.isCorrect);
 		if (correctAnswer?._id == gameState.clickedQuestionID) {
-			setTimeout(() => {}, 2000);
-		} else console.log("false");
+			dispatch(setGameState({ ...gameState, intermission: true, youAreCorrect: true }));
+			setTimeout(() => {
+				dispatch(
+					setGameState({
+						...gameState,
+						answerPending: false,
+						youAreCorrect: false,
+						intermission: false,
+						currentQuestionNumber: gameState.currentQuestionNumber + 1,
+					})
+				);
+			}, 2000);
+		} else {
+			dispatch(setGameState({ ...gameState, intermission: true }));
+			setTimeout(() => {
+				dispatch(setGameState({ ...gameState, intermission: false }));
+				dispatch(resetGameState());
+			}, 2000);
+		}
 	};
 
 	const handleNoClicked = () => {
@@ -32,7 +50,15 @@ export const PlayScreen = () => {
 	return (
 		<div className="millionaire-play-screen-wrapper">
 			<div className="millionaire-play-screen">
-				<div className="millionaire-text-div">{questions![gameState.currentQuestionNumber].content}</div>
+				{gameState.intermission ? (
+					gameState.youAreCorrect ? (
+						<div>GOOD JOB</div>
+					) : (
+						<div>WRONG ANSWER</div>
+					)
+				) : (
+					<div className="millionaire-text-div">{questions![gameState.currentQuestionNumber].content}</div>
+				)}
 				{gameState.lifelinesOnScreen && <LifelinesScreen />}
 				<button
 					disabled={gameState.answerPending}
