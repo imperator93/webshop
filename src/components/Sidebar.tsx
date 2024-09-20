@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import "./sidebar.css";
 import { setProducts } from "../redux/slices/productsSlice";
+import { resetGameState } from "../redux/slices/millionaire/gameState";
 
 export const SideBar = () => {
 	const products = useSelector((state: State) => state.products.products);
@@ -17,7 +18,10 @@ export const SideBar = () => {
 				</h2>
 				{products.map((item) => (
 					<Link
-						onClick={() => dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)))}
+						onClick={() => {
+							dispatch(resetGameState());
+							dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)));
+						}}
 						className="sidebar-list-item"
 						to={`/${item.type}s/${item._id}`}
 						key={Math.random()}

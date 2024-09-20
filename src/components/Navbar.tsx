@@ -5,6 +5,7 @@ import { setProducts } from "../redux/slices/productsSlice";
 //testInputs
 
 import "./navbar.css";
+import { resetGameState } from "../redux/slices/millionaire/gameState";
 
 export const Navbar = () => {
 	const categories = ["Home", "Cars", "Computers", "Phones", "MILLIONAIRE"];
@@ -17,6 +18,7 @@ export const Navbar = () => {
 						<Link
 							className="navbar-link"
 							onClick={() => {
+								dispatch(resetGameState());
 								dispatch(setProducts(JSON.parse(sessionStorage.getItem("allProducts")!)));
 							}}
 							to={item === "Home" ? "/" : `/${item.toLowerCase()}`}

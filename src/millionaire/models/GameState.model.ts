@@ -4,9 +4,11 @@ export type GameState = {
 	answerPending: boolean;
 	clickedQuestionID: string;
 	youAreCorrect: boolean;
+	youAreWrong: boolean;
 	lifelinesOnScreen: boolean;
 	intermission: boolean;
 	lifelines: Lifelines;
+	finalScreen: boolean;
 };
 
 type Lifelines = Record<

@@ -1,28 +1,45 @@
-import { useEffect, useState } from "react";
-
-import { IntroScreen } from "./components/introScreen/IntroScreen";
-import { PlayScreen } from "./components/playScreen/PlayScreen";
-import { MILLIONAIRE_URL, TRUE_MILLIONAIRE_URL } from "./constants/MILLIONAIRE_URL";
-
-import "./millionaire.css";
+import { useEffect, useRef, useState } from "react";
+import { setGameState } from "../redux/slices/millionaire/gameState";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../redux/store";
 import { setQuestions } from "../redux/slices/millionaire/questionsSlice";
+
+import { IntroScreen } from "./components/introScreen/IntroScreen";
+import { PlayScreen } from "./components/playScreen/PlayScreen";
+
+import { MILLIONAIRE_URL, TRUE_MILLIONAIRE_URL } from "./constants/MILLIONAIRE_URL";
+
+import "./millionaire.css";
 import { Question } from "./models/Question.model";
-import { setGameState } from "../redux/slices/millionaire/gameState";
+import { SecretQuestions } from "./models/SecretQuestions.model";
+
+import serbiaStrong from "./music/(Reupload) Serbia Strong Remove Kebab meme - 5 Minute Perfect Loop.mp3";
 
 export const Millionaire = () => {
+	const audio = useSelector((state: State) => state.audio);
 	const gameState = useSelector((state: State) => state.gameState);
 	const dispatch = useDispatch();
 
-	const [background, setBackground] = useState({
-		background: "URL(``)",
-	});
-
-	const [secretQuestions, setSecretQuestions] = useState({
+	const [secretQuestions, setSecretQuestions] = useState<SecretQuestions>({
 		keyWords: ["korač", "kruno", "zvonko", "zvonimir", "mulj", "dario", "ashow", "dado"],
 		canProceed: false,
 	});
+
+	const secretRef = useRef<HTMLAudioElement>(null);
+	const questionStartRef = useRef<HTMLAudioElement>(null);
+
+	//NEED TO FIGURE OUT A CLEVER WAY OF DOING THIS
+
+	// useEffect(() => {
+	// 	if (secretRef.current && secretQuestions.canProceed) {
+	// 		switch () {
+	// 			case "secretSound":
+	// 			secretRef.current.volume = 0.2;
+	// 			secretRef.current.play();
+	// 			secretRef.current.loop = true;
+	// 		} else secretRef.current?.pause();
+	// 	}
+	// }, [secretQuestions.canProceed, audio.secretSound]);
 
 	const handleSecretQuestions = (event: React.BaseSyntheticEvent) => {
 		secretQuestions.keyWords.forEach((item) => {
@@ -45,8 +62,25 @@ export const Millionaire = () => {
 	}, [dispatch, gameState.intro, secretQuestions.canProceed]);
 
 	return (
-		<div className="millionaire-main-div" style={secretQuestions.canProceed ? {} : {}}>
-			{gameState.intro ? <IntroScreen handleSecretQuestions={handleSecretQuestions} /> : <PlayScreen />}
+		<div
+			className="millionaire-main-div"
+			style={
+				secretQuestions.canProceed
+					? {
+							background: "URL(https://imgur.com/RbFxi6h.gif)",
+							backgroundRepeat: "no-repeat",
+							backgroundSize: "100% 100%",
+					  }
+					: {}
+			}
+		>
+			{gameState.intro ? (
+				<IntroScreen handleSecretQuestions={handleSecretQuestions} secretQuestions={secretQuestions} />
+			) : (
+				<PlayScreen secretQuestions={secretQuestions} />
+			)}
+			<audio ref={secretRef} src={serbiaStrong} preload="auto"></audio>
+			<audio ref={questionStartRef} src={serbiaStrong} preload="auto"></audio>
 		</div>
 	);
 };

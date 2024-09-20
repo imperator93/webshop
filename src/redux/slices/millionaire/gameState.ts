@@ -7,6 +7,7 @@ const initialState = {
 	answerPending: false,
 	clickedQuestionID: "",
 	youAreCorrect: false,
+	youAreWrong: false,
 	lifelinesOnScreen: false,
 	intermission: false,
 	lifelines: {
@@ -14,6 +15,7 @@ const initialState = {
 		phoneFriend: { isUsed: false, isCurrentlyOnScreen: false },
 		askAudience: { isUsed: false, isCurrentlyOnScreen: false },
 	},
+	finalScreen: false,
 } as GameState;
 
 //its rerendering the whole component but for something this small it really doesn't matter (also don't feel like writing 20 reducers)
