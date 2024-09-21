@@ -10,7 +10,7 @@ import { resetGameState, setGameState } from "../../../redux/slices/millionaire/
 
 import "./playScreen.css";
 import { SecretQuestions } from "../../models/SecretQuestions.model";
-import { setAudio } from "../../../redux/slices/millionaire/audioSlice";
+import { resetAudio, setAudio } from "../../../redux/slices/millionaire/audioSlice";
 
 export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestions }) => {
 	const gameState = useSelector((state: State) => state.gameState);
@@ -20,6 +20,7 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 
 	const handleAnswerClicked = (event: React.BaseSyntheticEvent) => {
 		dispatch(setGameState({ ...gameState, answerPending: true, clickedQuestionID: event.target.id }));
+		dispatch(setAudio({ ...audio, answerPendingSound: true }));
 	};
 
 	const handleYesClicked = () => {
@@ -27,30 +28,39 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 		if (correctAnswer?._id == gameState.clickedQuestionID) {
 			if (gameState.currentQuestionNumber == 14) {
 				dispatch(setGameState({ ...gameState, finalScreen: true, youAreCorrect: true, answerPending: false }));
+				dispatch(setAudio({ ...audio, winner: true, answerPendingSound: false }));
 			} else {
 				dispatch(setGameState({ ...gameState, intermission: true, youAreCorrect: true }));
-				setTimeout(() => {
-					dispatch(
-						setGameState({
-							...gameState,
-							answerPending: false,
-							youAreCorrect: false,
-							intermission: false,
-							currentQuestionNumber: gameState.currentQuestionNumber + 1,
-						})
-					);
-				}, 2000);
+				dispatch(setAudio({ ...audio, correctAnswerSound: true, answerPendingSound: false }));
+				setTimeout(
+					() => {
+						dispatch(
+							setGameState({
+								...gameState,
+								answerPending: false,
+								youAreCorrect: false,
+								intermission: false,
+								currentQuestionNumber: gameState.currentQuestionNumber + 1,
+							})
+						);
+						dispatch(setAudio({ ...audio, correctAnswerSound: false, answerPendingSound: false }));
+					},
+					secretQuestions.canProceed ? 2000 : 6000
+				);
 			}
 		} else {
 			dispatch(setGameState({ ...gameState, intermission: true, youAreWrong: true }));
+			if (!secretQuestions.canProceed) dispatch(setAudio({ ...gameState, wrongAnswerSound: true }));
 			setTimeout(() => {
 				dispatch(resetGameState());
-			}, 2000);
+				if (!secretQuestions.canProceed) dispatch(resetAudio());
+			}, 5000);
 		}
 	};
 
 	const handleNoClicked = () => {
 		dispatch(setGameState({ ...gameState, answerPending: false }));
+		dispatch(setAudio({ ...audio, answerPendingSound: false }));
 	};
 	if (questions.length == 0) return <div className="server-offline">SERVER OFFLINE PLEASE WAIT</div>;
 	return (
@@ -61,25 +71,50 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 						!secretQuestions.canProceed ? (
 							<div className="compliments-div">GOOD JOB</div>
 						) : (
-							<div className="compliments-div">BRAVO MAJMUNE</div>
+							<div
+								style={{
+									background: "url(https://imgur.com/VaiJjQk.jpeg)",
+									backgroundRepeat: "no-repeat",
+									backgroundSize: "100% 100%",
+								}}
+								className="compliments-div"
+							>
+								BRAVO MAJMUNE
+							</div>
 						)
 					) : !secretQuestions.canProceed ? (
 						<div className="compliments-div">WRONG ANSWER</div>
 					) : (
-						<div className="compliments-div">GLUPANE!!!</div>
+						<div
+							style={{
+								background: "url(https://imgur.com/sYH4FpJ.jpeg)",
+								backgroundRepeat: "no-repeat",
+								backgroundSize: "100% 100%",
+							}}
+							className="compliments-div"
+						>
+							GLUPANE!!!
+						</div>
 					)
 				) : !gameState.finalScreen ? (
 					<div className="millionaire-text-div">{questions![gameState.currentQuestionNumber].content}</div>
 				) : (
 					<div className="compliments-div">
 						<h3>YOU HAVE BEATEN THE QUIZ!!!</h3>
-						<button onClick={() => dispatch(resetGameState())}>QUIT</button>
+						<button
+							onClick={() => {
+								dispatch(resetAudio());
+								dispatch(resetGameState());
+							}}
+						>
+							QUIT
+						</button>
 					</div>
 				)}
 				{gameState.lifelinesOnScreen && <LifelinesScreen />}
 				{!secretQuestions.canProceed ? (
 					<button
-						disabled={gameState.answerPending}
+						disabled={gameState.answerPending || gameState.finalScreen}
 						onClick={() => dispatch(setGameState({ ...gameState, lifelinesOnScreen: !gameState.lifelinesOnScreen }))}
 						className="millionaire-open-lifelines-button"
 					>
@@ -138,7 +173,13 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 							// 	? { backgroundColor: "orange" }
 							// 	: {}
 						}
-						className={!gameState.finalScreen ? "millionaire-play-screen-answer-button" : "final-animation"}
+						className={
+							!gameState.finalScreen
+								? "millionaire-play-screen-answer-button"
+								: secretQuestions.canProceed
+								? "final-animation"
+								: "millionaire-play-screen-answer-button"
+						}
 						id={answer._id}
 						key={answer._id}
 					>

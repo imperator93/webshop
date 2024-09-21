@@ -4,6 +4,7 @@ import { State } from "../../../redux/store";
 
 import "./introScreen.css";
 import { SecretQuestions } from "../../models/SecretQuestions.model";
+import { setAudio } from "../../../redux/slices/millionaire/audioSlice";
 
 export const IntroScreen = ({
 	handleSecretQuestions,
@@ -13,6 +14,7 @@ export const IntroScreen = ({
 	secretQuestions: SecretQuestions;
 }) => {
 	const gameState = useSelector((state: State) => state.gameState);
+	const audio = useSelector((state: State) => state.audio);
 	const dispatch = useDispatch();
 
 	return (
@@ -22,6 +24,8 @@ export const IntroScreen = ({
 				className="millionaire-start-button"
 				onClick={() => {
 					dispatch(setGameState({ ...gameState, intro: false }));
+					dispatch(setAudio({ ...audio, questionStart: true }));
+					setTimeout(() => setAudio({ ...audio, questionStart: false }), 5000);
 				}}
 			>
 				Start

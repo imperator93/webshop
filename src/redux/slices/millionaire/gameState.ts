@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GameState } from "../../../millionaire/models/GameState.model";
 
-const initialState = {
+const initialState: GameState = {
 	intro: true,
 	currentQuestionNumber: 0,
 	answerPending: false,
@@ -16,7 +16,7 @@ const initialState = {
 		askAudience: { isUsed: false, isCurrentlyOnScreen: false },
 	},
 	finalScreen: false,
-} as GameState;
+};
 
 //its rerendering the whole component but for something this small it really doesn't matter (also don't feel like writing 20 reducers)
 //maybe i'll change it later if the app starts to slow down
@@ -24,7 +24,7 @@ const initialState = {
 
 const gameStateSlice = createSlice({
 	name: "gameSlice",
-	initialState: initialState,
+	initialState: initialState as GameState,
 	reducers: {
 		setGameState: (_, action) => action.payload,
 		resetGameState: () => initialState,
