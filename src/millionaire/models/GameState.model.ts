@@ -11,4 +11,7 @@ export type GameState = {
 	finalScreen: boolean;
 };
 
-export type Lifelines = Record<string, { isUsed: boolean; isCurrentlyOnScreen: boolean }>;
+export type Lifelines = Record<
+	"fiftyFifty" | "phoneFriend" | "askAudience",
+	{ isUsed: boolean; isCurrentlyOnScreen: boolean; online: string; disabled: string }
+>;

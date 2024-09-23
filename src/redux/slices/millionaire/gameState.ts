@@ -11,9 +11,24 @@ const initialState: GameState = {
 	lifelinesOnScreen: false,
 	intermission: false,
 	lifelines: {
-		fiftyFifty: { isUsed: false, isCurrentlyOnScreen: false },
-		phoneFriend: { isUsed: false, isCurrentlyOnScreen: false },
-		askAudience: { isUsed: false, isCurrentlyOnScreen: false },
+		fiftyFifty: {
+			isUsed: false,
+			isCurrentlyOnScreen: false,
+			online: "fifty-fifty-button",
+			disabled: "fifty-fifty-button-used",
+		},
+		phoneFriend: {
+			isUsed: false,
+			isCurrentlyOnScreen: false,
+			online: "phone-friend-button",
+			disabled: "phone-friend-button-used",
+		},
+		askAudience: {
+			isUsed: false,
+			isCurrentlyOnScreen: false,
+			online: "ask-audience-button",
+			disabled: "ask-audience-button-used",
+		},
 	},
 	finalScreen: false,
 };

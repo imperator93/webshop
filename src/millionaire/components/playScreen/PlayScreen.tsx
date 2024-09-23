@@ -11,6 +11,7 @@ import { resetGameState, setGameState } from "../../../redux/slices/millionaire/
 import "./playScreen.css";
 import { SecretQuestions } from "../../models/SecretQuestions.model";
 import { resetAudio, setAudio } from "../../../redux/slices/millionaire/audioSlice";
+import { PhoneFriend } from "../lifelinesScreen/PhoneFriend/PhoneFriend";
 
 export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestions }) => {
 	const gameState = useSelector((state: State) => state.gameState);
@@ -97,7 +98,10 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 						</div>
 					)
 				) : !gameState.finalScreen ? (
-					<div className="millionaire-text-div">{questions![gameState.currentQuestionNumber].content}</div>
+					<>
+						{gameState.lifelines.phoneFriend.isCurrentlyOnScreen && <PhoneFriend />}
+						<div className="millionaire-text-div">{questions![gameState.currentQuestionNumber].content}</div>
+					</>
 				) : (
 					<div className="compliments-div">
 						<h3>YOU HAVE BEATEN THE QUIZ!!!</h3>
@@ -114,7 +118,9 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 				{gameState.lifelinesOnScreen && <LifelinesScreen />}
 				{!secretQuestions.canProceed ? (
 					<button
-						disabled={gameState.answerPending || gameState.finalScreen}
+						disabled={
+							gameState.answerPending || gameState.finalScreen || gameState.lifelines.phoneFriend.isCurrentlyOnScreen
+						}
 						onClick={() => dispatch(setGameState({ ...gameState, lifelinesOnScreen: !gameState.lifelinesOnScreen }))}
 						className="millionaire-open-lifelines-button"
 					>
@@ -149,7 +155,11 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 				{questions![gameState.currentQuestionNumber].answers.map((answer) => (
 					<button
 						disabled={
-							gameState.answerPending || gameState.lifelinesOnScreen || gameState.intermission || gameState.finalScreen
+							gameState.answerPending ||
+							gameState.lifelinesOnScreen ||
+							gameState.intermission ||
+							gameState.finalScreen ||
+							gameState.lifelines.phoneFriend.isCurrentlyOnScreen
 						}
 						onClick={(event) => handleAnswerClicked(event)}
 						//I wonder if this could be done without a second bool value

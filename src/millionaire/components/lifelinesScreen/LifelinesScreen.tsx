@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setFiftyFifty, setGameState } from "../../../redux/slices/millionaire/gameState";
+import { setFiftyFifty, setGameState, setPhoneFriend } from "../../../redux/slices/millionaire/gameState";
 import { State } from "../../../redux/store";
-import { lifelinesEnum } from "../../enums/lifelinesEnum";
 
 import "./lifelinesScreen.css";
 import { setQuestions } from "../../../redux/slices/millionaire/questionsSlice";
+import { Lifelines } from "../../models/GameState.model";
 
 export const LifelinesScreen = () => {
 	const gameState = useSelector((state: State) => state.gameState);
@@ -41,19 +41,24 @@ export const LifelinesScreen = () => {
 				}
 				break;
 			}
+			case "phone-friend-button": {
+				dispatch(setPhoneFriend({ isUsed: true, isCurrentlyOnScreen: true }));
+			}
 		}
 	};
 	return (
 		<div className="millionaire-lifelines-div">
-			{Object.values(lifelinesEnum).map((value) => (
+			{/* SUCH AN UGLY FIX FOR SIMPLE TUPLES */}
+			{(Object.entries(gameState.lifelines) as [keyof Lifelines, Lifelines[keyof Lifelines]][]).map(([key, value]) => (
 				<button
+					disabled={gameState.lifelines[key].isUsed}
 					onClick={(event) => {
 						dispatch(setGameState({ ...gameState, lifelinesOnScreen: false }));
 						handleLifelinesClicked(event);
 					}}
 					key={value.online}
 					id={value.online}
-					className={value.online}
+					className={value.isUsed ? value.disabled : value.online}
 				></button>
 			))}
 		</div>

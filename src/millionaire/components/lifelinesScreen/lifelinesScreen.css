@@ -36,7 +36,10 @@
 
 .fifty-fifty-button,
 .phone-friend-button,
-.ask-audience-button {
+.ask-audience-button,
+.fifty-fifty-button-used,
+.phone-friend-button-used,
+.ask-audience-button-used {
 	cursor: pointer;
 	width: 80px;
 	height: 50px;
