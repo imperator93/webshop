@@ -19,6 +19,8 @@ import answerPending from "./music/answer-pending.mp3";
 import answerCorrect from "./music/answer-correct.mp3";
 import answerWrong from "./music/answer-wrong.mp3";
 import winner from "./music/winner.mp3";
+import jaranWrong from "./music/jaran-wrong.mp3";
+import shevaCorrect from "./music/ševa-correct.mp3";
 
 export const Millionaire = () => {
 	const audio = useSelector((state: State) => state.audio);
@@ -36,6 +38,8 @@ export const Millionaire = () => {
 	const answerPendingRef = useRef<HTMLAudioElement>(null);
 	const answerWrongRef = useRef<HTMLAudioElement>(null);
 	const winnerRef = useRef<HTMLAudioElement>(null);
+	const jaranWrongRef = useRef<HTMLAudioElement>(null);
+	const shevaCorrectRef = useRef<HTMLAudioElement>(null);
 
 	//NEED TO FIGURE OUT A CLEVER WAY OF DOING THIS
 	useEffect(() => {
@@ -45,7 +49,9 @@ export const Millionaire = () => {
 			answerCorrectRef.current &&
 			answerPendingRef.current &&
 			answerWrongRef.current &&
-			winnerRef.current
+			winnerRef.current &&
+			jaranWrongRef.current &&
+			shevaCorrectRef.current
 		) {
 			if (!secretQuestions.canProceed) {
 				if (audio.answerPendingSound) {
@@ -69,11 +75,21 @@ export const Millionaire = () => {
 					winnerRef.current.currentTime = 0;
 					winnerRef.current.play();
 				} else winnerRef.current.pause();
+			} else if (secretQuestions.canProceed) {
+				if (audio.secretSound) {
+					secretRef.current.volume = 0.2;
+					secretRef.current.play();
+					secretRef.current.loop = true;
+				} else secretRef.current.pause();
+				if (audio.jaranWrong) {
+					jaranWrongRef.current.currentTime = 0;
+					jaranWrongRef.current.play();
+				} else jaranWrongRef.current.pause();
+				if (audio.shevaCorrect) {
+					shevaCorrectRef.current.currentTime = 0;
+					shevaCorrectRef.current.play();
+				} else shevaCorrectRef.current.pause();
 			}
-			if (audio.secretSound && secretQuestions.canProceed) {
-				secretRef.current.play();
-				secretRef.current.loop = true;
-			} else secretRef.current.pause();
 		}
 	}, [audio, secretQuestions]);
 
@@ -121,6 +137,8 @@ export const Millionaire = () => {
 			<audio ref={answerPendingRef} src={answerPending} preload="auto"></audio>
 			<audio ref={answerWrongRef} src={answerWrong} preload="auto"></audio>
 			<audio ref={winnerRef} src={winner} preload="auto"></audio>
+			<audio ref={jaranWrongRef} src={jaranWrong} preload="auto"></audio>
+			<audio ref={shevaCorrectRef} src={shevaCorrect} preload="auto"></audio>
 		</div>
 	);
 };

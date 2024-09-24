@@ -12,6 +12,7 @@ import "./playScreen.css";
 import { SecretQuestions } from "../../models/SecretQuestions.model";
 import { resetAudio, setAudio } from "../../../redux/slices/millionaire/audioSlice";
 import { PhoneFriend } from "../lifelinesScreen/PhoneFriend/PhoneFriend";
+import { AskAudienceScreen } from "../lifelinesScreen/askAudienceScreen/AskAudienceScreen";
 
 export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestions }) => {
 	const gameState = useSelector((state: State) => state.gameState);
@@ -33,6 +34,7 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 			} else {
 				dispatch(setGameState({ ...gameState, intermission: true, youAreCorrect: true }));
 				dispatch(setAudio({ ...audio, correctAnswerSound: true, answerPendingSound: false }));
+				if (secretQuestions.canProceed) dispatch(setAudio({ ...audio, shevaCorrect: true }));
 				setTimeout(
 					() => {
 						dispatch(
@@ -44,7 +46,7 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 								currentQuestionNumber: gameState.currentQuestionNumber + 1,
 							})
 						);
-						dispatch(setAudio({ ...audio, correctAnswerSound: false, answerPendingSound: false }));
+						dispatch(resetAudio());
 					},
 					secretQuestions.canProceed ? 2000 : 6000
 				);
@@ -52,9 +54,10 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 		} else {
 			dispatch(setGameState({ ...gameState, intermission: true, youAreWrong: true }));
 			if (!secretQuestions.canProceed) dispatch(setAudio({ ...gameState, wrongAnswerSound: true }));
+			else dispatch(setAudio({ ...audio, jaranWrong: true }));
 			setTimeout(() => {
 				dispatch(resetGameState());
-				if (!secretQuestions.canProceed) dispatch(resetAudio());
+				dispatch(resetAudio());
 			}, 5000);
 		}
 	};
@@ -100,6 +103,7 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 				) : !gameState.finalScreen ? (
 					<>
 						{gameState.lifelines.phoneFriend.isCurrentlyOnScreen && <PhoneFriend />}
+						{gameState.lifelines.askAudience.isCurrentlyOnScreen && <AskAudienceScreen />}
 						<div className="millionaire-text-div">{questions![gameState.currentQuestionNumber].content}</div>
 					</>
 				) : (
@@ -119,7 +123,10 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 				{!secretQuestions.canProceed ? (
 					<button
 						disabled={
-							gameState.answerPending || gameState.finalScreen || gameState.lifelines.phoneFriend.isCurrentlyOnScreen
+							gameState.answerPending ||
+							gameState.finalScreen ||
+							gameState.lifelines.phoneFriend.isCurrentlyOnScreen ||
+							gameState.lifelines.askAudience.isCurrentlyOnScreen
 						}
 						onClick={() => dispatch(setGameState({ ...gameState, lifelinesOnScreen: !gameState.lifelinesOnScreen }))}
 						className="millionaire-open-lifelines-button"
@@ -159,7 +166,8 @@ export const PlayScreen = ({ secretQuestions }: { secretQuestions: SecretQuestio
 							gameState.lifelinesOnScreen ||
 							gameState.intermission ||
 							gameState.finalScreen ||
-							gameState.lifelines.phoneFriend.isCurrentlyOnScreen
+							gameState.lifelines.phoneFriend.isCurrentlyOnScreen ||
+							gameState.lifelines.askAudience.isCurrentlyOnScreen
 						}
 						onClick={(event) => handleAnswerClicked(event)}
 						//I wonder if this could be done without a second bool value

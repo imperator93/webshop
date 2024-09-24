@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setFiftyFifty, setGameState, setPhoneFriend } from "../../../redux/slices/millionaire/gameState";
+import {
+	setAskAudience,
+	setFiftyFifty,
+	setGameState,
+	setPhoneFriend,
+} from "../../../redux/slices/millionaire/gameState";
 import { State } from "../../../redux/store";
 
 import "./lifelinesScreen.css";
@@ -13,7 +18,6 @@ export const LifelinesScreen = () => {
 
 	const handleLifelinesClicked = (event: React.BaseSyntheticEvent) => {
 		switch (event.target.id) {
-			//jesus christ
 			case "fifty-fifty-button": {
 				if (!gameState.lifelines.fiftyFifty.isUsed) {
 					const answers = questions[gameState.currentQuestionNumber].answers;
@@ -43,6 +47,11 @@ export const LifelinesScreen = () => {
 			}
 			case "phone-friend-button": {
 				dispatch(setPhoneFriend({ isUsed: true, isCurrentlyOnScreen: true }));
+				break;
+			}
+			case "ask-audience-button": {
+				dispatch(setAskAudience({ isUsed: true, isCurrentlyOnScreen: true }));
+				break;
 			}
 		}
 	};

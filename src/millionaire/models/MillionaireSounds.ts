@@ -5,4 +5,6 @@ export type MillionaireSounds = {
 	winner: boolean;
 	questionStart: boolean;
 	secretSound: boolean;
+	jaranWrong: boolean;
+	shevaCorrect: boolean;
 };

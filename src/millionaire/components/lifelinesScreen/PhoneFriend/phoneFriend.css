@@ -1,10 +1,50 @@
 .phone-friend-screen {
+	width: 50%;
+	height: 50%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 50%;
-	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: black;
 	border: 1px solid white;
+}
+.phone-friend-screen-pic {
+	width: 80px;
+	height: 50px;
+	border: none;
+	background: url("https://imgur.com/ibulu20.jpeg");
+	border-radius: 100%;
+	background-size: 100% 100%;
+}
+.time {
+	position: absolute;
+	width: 20%;
+	height: 20%;
+	top: 80%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.phone-friend-answer {
+	width: 30%;
+	height: 35%;
+	left: 60%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	font-size: 15px;
+}
+.phone-friend-answer > div {
+	width: 100%;
+	text-align: center;
+}
+
+@media (max-width: 764px) {
+	.phone-friend-screen {
+		width: 100%;
+	}
 }

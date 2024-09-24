@@ -8,6 +8,8 @@ const initialState: MillionaireSounds = {
 	questionStart: false,
 	secretSound: true,
 	winner: false,
+	jaranWrong: false,
+	shevaCorrect: false,
 };
 
 const audioSlice = createSlice({
