@@ -1,2 +1,2 @@
-export const MILLIONAIRE_URL = "http://localhost:3000/question";
-export const TRUE_MILLIONAIRE_URL = "http://localhost:3000/true-questions";
+export const MILLIONAIRE_URL = "https://webshop-backend-rgpw.onrender.com/question";
+export const TRUE_MILLIONAIRE_URL = "https://webshop-backend-rgpw.onrender.com/true-question";

@@ -24,6 +24,7 @@ import { setProducts } from "./redux/slices/productsSlice";
 import { ProductType } from "./types/Product";
 import { setUser } from "./redux/slices/userSlice";
 import { Millionaire } from "./millionaire/Millionaire";
+import { WEBSHOP_URL } from "./constants/WEBSHOP_URL";
 
 function App() {
 	const user = useSelector((state: State) => state.user.user);
@@ -32,7 +33,7 @@ function App() {
 
 	//search (replace this with fetch later)
 	useEffect(() => {
-		fetch("https://webshop-backend-rgpw.onrender.com/products")
+		fetch(`${WEBSHOP_URL}/products`)
 			.then((response) => response.json())
 			.then((data) => {
 				dispatch(setProducts(data.allProducts));

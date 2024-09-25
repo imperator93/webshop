@@ -9,6 +9,7 @@ import { setUser } from "../../redux/slices/userSlice";
 
 import "./login.css";
 import { passHesh } from "../../helpers/passHesh";
+import { WEBSHOP_URL } from "../../constants/WEBSHOP_URL";
 export const Login = () => {
 	const dispatch = useDispatch();
 
@@ -51,7 +52,7 @@ export const Login = () => {
 		};
 		setRegister({ ...register, userExists: false });
 
-		fetch("https://webshop-backend-rgpw.onrender.com/users", {
+		fetch(`${WEBSHOP_URL}/users`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -75,7 +76,7 @@ export const Login = () => {
 		//yes everyone can see the encryption pass what can you do...maybe have a secret key? :=)
 		const encryptedPassword = passHesh(userPassword);
 
-		fetch(`https://webshop-backend-rgpw.onrender.com/users/login`, {
+		fetch(`${WEBSHOP_URL}/users/login`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",

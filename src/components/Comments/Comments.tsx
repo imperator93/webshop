@@ -6,6 +6,7 @@ import { Comment } from "../../types/Comment";
 import { getDate } from "../../helpers/getDate";
 import { addComment, removeComment } from "./../../redux/slices/productsSlice";
 import "./comments.css";
+import { WEBSHOP_URL } from "../../constants/WEBSHOP_URL";
 
 export const Comments = ({ product }: { product: ProductType }) => {
 	const user = useSelector((state: State) => state.user.user);
@@ -24,7 +25,7 @@ export const Comments = ({ product }: { product: ProductType }) => {
 		};
 		inputValue = "";
 
-		fetch(`https://webshop-backend-rgpw.onrender.com/${product.type}s/${product._id}`, {
+		fetch(`${WEBSHOP_URL}/${product.type}s/${product._id}`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -44,7 +45,7 @@ export const Comments = ({ product }: { product: ProductType }) => {
 			return;
 		}
 
-		fetch(`https://webshop-backend-rgpw.onrender.com/${product.type}s/${product._id}/${event.target.id}`, {
+		fetch(`${WEBSHOP_URL}/${product.type}s/${product._id}/${event.target.id}`, {
 			method: "DELETE",
 		})
 			.then((response) => response.json())

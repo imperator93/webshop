@@ -109,7 +109,6 @@ export const Millionaire = () => {
 				.then((data) => {
 					const sortedData: Question[] = data.questions.sort((a: Question, b: Question) => a.num - b.num);
 					dispatch(setQuestions(sortedData));
-					console.log("fetching");
 				});
 	}, [dispatch, gameState.intro, secretQuestions.canProceed]);
 
