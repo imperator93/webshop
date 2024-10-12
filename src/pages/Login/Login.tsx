@@ -48,6 +48,7 @@ export const Login = () => {
 		const newUser: User = {
 			username: username,
 			password: password,
+			cart: [],
 			avatar: findChecked(event),
 		};
 		setRegister({ ...register, userExists: false });
