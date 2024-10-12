@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import { FaSearch } from "react-icons/fa";
 import { SlLogin } from "react-icons/sl";
+import { FaShoppingCart } from "react-icons/fa";
 
 import { setProducts } from "../redux/slices/productsSlice";
 
@@ -42,7 +43,9 @@ export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<H
 			) : (
 				<>
 					<h3 style={{ fontWeight: "100", backdropFilter: "blur(5px)" }}>
-						Currently logged in as: <strong>{user.username}</strong>
+						<button style={{ cursor: "pointer", background: "none", border: "none" }}>
+							<img style={{ borderRadius: "20px" }} className="avatar" src={user.avatar} />
+						</button>
 					</h3>
 					<button
 						className="log-out-button"
@@ -53,6 +56,9 @@ export const Head = ({ handleSearch }: { handleSearch: (event: React.FormEvent<H
 					>
 						LOG OUT
 					</button>
+					<Link to="/user-cart" className="shopping-cart-button">
+						<FaShoppingCart />
+					</Link>
 				</>
 			)}
 		</div>

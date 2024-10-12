@@ -35,7 +35,7 @@ export const IntroScreen = ({
 					<p>Ako si dio tronožca ili živiš prekoputa utipkaj svoje ime otkrij prava pitanja</p>
 					<input onChange={(event) => handleSecretQuestions(event)} type="text"></input>
 				</div>
-			)}{" "}
+			)}
 		</div>
 	);
 };

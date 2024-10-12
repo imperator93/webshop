@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //components
@@ -25,10 +25,23 @@ import { ProductType } from "./types/Product";
 import { setUser } from "./redux/slices/userSlice";
 import { Millionaire } from "./millionaire/Millionaire";
 import { WEBSHOP_URL } from "./constants/WEBSHOP_URL";
+import { ServerOfflinePage } from "./pages/serverOfflinePage/ServerOfflinePage";
+import { UserCart } from "./pages/user-cart/UserCart";
 
 function App() {
 	const user = useSelector((state: State) => state.user.user);
 	const products = useSelector((state: State) => state.products.products);
+
+	const [serverResponse, setServerResponse] = useState(false);
+
+	useEffect(() => {
+		fetch(`${WEBSHOP_URL}`)
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.flag) setServerResponse(true);
+			});
+	}, []);
+
 	const dispatch = useDispatch();
 
 	//search (replace this with fetch later)
@@ -64,6 +77,7 @@ function App() {
 		inputValue = "";
 	};
 
+	if (!serverResponse) return <ServerOfflinePage />;
 	return (
 		<div
 			className="app"
@@ -93,6 +107,8 @@ function App() {
 
 					<Route path="/phones" element={<PhonesPage products={products} />} />
 					<Route path="phones/:productID" element={<ProductPage />} />
+
+					{user && <Route path="/user-cart" element={<UserCart />} />}
 
 					<Route path="/millionaire" element={<Millionaire />} />
 

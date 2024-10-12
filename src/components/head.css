@@ -67,6 +67,22 @@
 	color: blue;
 	transform: scale(1.1);
 }
+
+.shopping-cart-button {
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	margin-left: auto;
+	background-color: transparent;
+	border: none;
+	color: white;
+	font-size: 30px;
+}
+
+.shopping-cart-button:hover {
+	transform: scale(1.1);
+}
+
 @media (max-width: 576px) {
 	.head-wrapper {
 		height: 120px;
