@@ -19,6 +19,23 @@
 	font-size: 50px;
 }
 
+.total-price-section {
+	display: flex;
+	justify-content: space-between;
+	margin: 6px 0px 6px 0px;
+}
+
+.user-cart-list > button {
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+}
+
+.user-cart-list > button:hover {
+	transform: scale(1.1);
+	color: blue;
+}
+
 @media (max-width: 576px) {
 	.user-cart-list {
 		width: 100%;

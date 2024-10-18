@@ -2,11 +2,13 @@ import { State } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { setUser } from "../../redux/slices/userSlice";
+import { addProductToCart, incrementExistingItemCount } from "../../redux/slices/userSlice";
 
 import { TypeOfProductUtil } from "../../components/util-components/TypeOfProductUtil";
 import { Rating } from "../../components/util-components/Rating";
 import { Comments } from "../../components/Comments/Comments";
+
+import { WEBSHOP_URL } from "../../constants/WEBSHOP_URL";
 
 import "./product-page.css";
 
@@ -27,19 +29,39 @@ export const ProductPage = () => {
 
 	const handleAddToCartAccept = () => {
 		const itemAlreadyInCart = user!.cart.find((thing) => thing.product._id == item?._id);
-		if (itemAlreadyInCart) itemAlreadyInCart.count += itemQuantity;
-		dispatch(
-			setUser({
-				...user,
-				cart: [
-					...user!.cart,
-					{
-						product: item,
-						count: itemAlreadyInCart ? itemAlreadyInCart.count : itemQuantity,
-					},
-				],
+		if (itemAlreadyInCart) {
+			dispatch(incrementExistingItemCount({ itemId: itemAlreadyInCart.product._id, count: itemQuantity }));
+			fetch(`${WEBSHOP_URL}/users/${user?._id}/user-cart`, {
+				method: "PUT",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({ count: itemQuantity }),
 			})
-		);
+				.then((response) => response.json())
+				.then((data) => {
+					sessionStorage.removeItem("user");
+					sessionStorage.setItem("user", JSON.stringify(user));
+
+					console.log(data);
+				});
+		} else {
+			dispatch(addProductToCart({ product: item!, count: itemQuantity }));
+
+			fetch(WEBSHOP_URL + `/users/${user?._id}/user-cart`, {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({ product: item, count: itemQuantity }),
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					sessionStorage.removeItem("user");
+					sessionStorage.setItem("user", JSON.stringify(user));
+					console.log(data);
+				});
+		}
 	};
 	if (item)
 		return (
@@ -76,7 +98,7 @@ export const ProductPage = () => {
 								ACCEPT
 							</button>
 						</div>
-					)}{" "}
+					)}
 					<Comments product={item} />
 				</div>
 			</div>
